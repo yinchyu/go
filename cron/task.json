@@ -1,0 +1,21 @@
+{
+  "tasklist": [{
+    "taskname": "client",
+    "intervaltime":"0 0 * * *",
+    "workingdirectory": "C:\\Users\\11928\\Desktop\\pythontest\\udp组播地址和广播测试\\",
+    "execcommand": "python multicastclient.py"
+  },{
+    "taskname": "server",
+    "intervaltime":"0 0 * * *",
+    "workingdirectory": "C:\\Users\\11928\\Desktop\\pythontest\\udp组播地址和广播测试\\",
+    "execcommand": "python multicastserver.py"
+  },
+    {
+      "taskname": "test",
+      "intervaltime":"0 0 * * *",
+      "workingdirectory": "C:\\Users\\11928\\Desktop\\pythontest\\udp组播地址和广播测试\\",
+      "execcommand": "python test.py -n 12 -s \"323\""
+    }
+  ],
+  "checktime": 60
+}
