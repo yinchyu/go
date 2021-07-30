@@ -13,7 +13,7 @@ const (
 	four
 	fife
 )
-
+// startgorountine 启动goroutine 的顺序测试
 func startgorountine() int{
 	// 启动之后就和这个函数没有关系了， 可以在函数的末尾设置  wg.wait
 	// 或者在main 函数的开始设置结束
