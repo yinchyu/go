@@ -305,6 +305,42 @@ func ReplaceCompareTest(){
 }
 
 
+
+// 定义树的类型,华为一面手写二叉树的层次遍历
+type  BinaryTree struct {
+ val int
+ leftnode *BinaryTree
+ rightnode *BinaryTree
+}
+func printtree( root *BinaryTree){
+	// 如果树为空就直接结束打印并换行
+	if root==nil{
+		fmt.Println()
+		return
+	}
+	queue:=[]*BinaryTree{root}
+	for len(queue)>0{
+		// temp:=queue
+		queue=[]*BinaryTree{}
+		size:=len(queue)
+		// top:=queue[len(queue)-1]
+		for i :=range queue{
+			// 打印节点值
+			fmt.Print(queue[i].val)
+			if queue[i].leftnode!=nil{
+				queue=append(queue,queue[i].leftnode)
+			}
+			if queue[i].rightnode!=nil{
+				queue=append(queue,queue[i].rightnode)
+			}
+		}
+		// 将前边的元素都删除
+		queue=queue[size:]
+		// 换行输出
+		fmt.Println()
+	}
+}
+
 func countMaxActivityTest(){
 	timeschedule := [][]string{{"10:00", "12:00"}, {"03:00", "11:30"}, {"11:30", "14:00"}}
 	fmt.Println(countMaxActivity(timeschedule))
