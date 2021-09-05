@@ -102,5 +102,5 @@ func BuildTree( root *Tree) *Tree{
 	//
 	// select distinct(uid) from t1 join t1 as t2  on t1.uid=t2.uid  where t1.event=2 and t2.event=4;
 
-
+return nil
 	}
