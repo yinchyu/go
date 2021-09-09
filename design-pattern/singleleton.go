@@ -1,14 +1,15 @@
 package main
+
 import (
 	"fmt"
 	"reflect"
 	"sync"
 )
 
-var(
+var (
 	once sync.Once
-
 )
+
 func single() {
 	fmt.Println("执行的次数")
 }
@@ -27,6 +28,6 @@ func singleleton() {
 	once.Do(single)
 	fmt.Println(reflect.ValueOf(once))
 }
-func main(){
+func main() {
 	singleleton()
 }

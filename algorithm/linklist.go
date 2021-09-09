@@ -22,6 +22,7 @@ func Newlist(nums []int) *linklist {
 }
 
 func reversek(head *linklist, k int) *linklist {
+	// 链表可以通过 head 和 head.next 两个来进行初始化的限定
 	if k == 0 || head == nil || head.next == nil {
 		return head
 	}
@@ -35,6 +36,7 @@ func reversek(head *linklist, k int) *linklist {
 	if add == n {
 		return head
 	}
+	// 链表成环，
 	fastpointer.next = head
 	for add > 0 {
 		fastpointer = fastpointer.next
@@ -72,8 +74,7 @@ func main() {
 	fmt.Printf("%p %v\n", &c, c)
 	(&c).print()
 	fmt.Printf("%p %v\n", &c, c)
-	// 0xc00000a098 123
-	// 123
-	// 22
-	// 0xc00000a098 123
+	a := Newlist([]int{2, 3, 4, 5, 6})
+	newl := reversek(a, 2)
+	visit(newl)
 }

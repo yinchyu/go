@@ -2,8 +2,7 @@ package main
 
 import (
 	"fmt"
-	rate "main"
-	// "golang.org/x/time/rate"
+	"golang.org/x/time/rate"
 	"net/http"
 	"time"
 )

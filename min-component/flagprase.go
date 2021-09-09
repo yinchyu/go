@@ -50,19 +50,7 @@ func VariableDefine(s string) string {
 	}
 	return string(output)
 }
-func invertTree(root *TreeNode) *TreeNode {
-	if root == nil {
-		return nil
-	}
 
-	rootleft := invertTree(root.Left)
-	rootright := invertTree(root.Right)
-	root.Left = rootright
-	root.Right = rootleft
-
-	return root
-
-}
 func main() {
 
 	fmt.Println(VariableDefine("hello_world"))

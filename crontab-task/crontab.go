@@ -1,4 +1,5 @@
 package main
+
 import (
 	"bytes"
 	"encoding/json"
@@ -12,6 +13,7 @@ import (
 	"sync"
 	"time"
 )
+
 type task struct {
 	Taskname         string `json:"taskname"`
 	Intervaltime     string `json:"intervaltime"`
@@ -25,6 +27,7 @@ type tasklist struct {
 	Tasklist  []task `json:"tasklist"`
 	Checktime int    `json:"checktime"`
 }
+
 func readfile(filepath string) tasklist {
 	filedata, err := ioutil.ReadFile(filepath)
 	if err != nil {
@@ -53,7 +56,7 @@ func CheckProcessAlive(taskmap *map[string]task, checktime int) {
 				if err != nil {
 					fmt.Println(err)
 				} else {
-					fmt.Println("command line:",command)
+					fmt.Println("command line:", command)
 				}
 				fmt.Println(timer, taskname.Taskname, pid, "is alive")
 			} else {
@@ -77,14 +80,14 @@ func (processd *task) KillProcess() {
 
 }
 func (process *task) StartProcess(alltast *map[string]task) {
-	list:=strings.Split(process.Execcommand," ")
-	args:=make([]string,0,len(list))
-	for index:=range list{
-		if list[index]!=""{
-			args=append(args,list[index])
+	list := strings.Split(process.Execcommand, " ")
+	args := make([]string, 0, len(list))
+	for index := range list {
+		if list[index] != "" {
+			args = append(args, list[index])
 		}
 	}
-	cmd := exec.Command(args[0],args[1:]...)
+	cmd := exec.Command(args[0], args[1:]...)
 	cmd.Dir = process.Workingdirectory
 	process.terminal = cmd
 	err := process.terminal.Start()
@@ -102,9 +105,11 @@ func (processd *task) Run() {
 	fmt.Println("enter timmer ,kill process ............", t.terminal.Process.Pid)
 	t.KillProcess()
 }
+
 // map 需要定义成全局变量然后方便访问,对map 进行上锁操作，避免写入数据的过程中被读取数据
 var mux sync.Mutex
 var taskmap map[string]task
+
 func main() {
 	taskmap = make(map[string]task)
 	alltast := readfile("./task.json")

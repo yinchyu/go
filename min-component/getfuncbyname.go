@@ -4,19 +4,21 @@ import (
 	"fmt"
 	"reflect"
 )
+
 type animal struct {
 }
-func (a *animal) Printhello(){
+
+func (a *animal) Printhello() {
 	fmt.Println("get hello ")
 }
 
-func getfuncbyname(){
+func getfuncbyname() {
 	var a animal
-	val:=reflect.ValueOf(&a)
+	val := reflect.ValueOf(&a)
 	// 如果通过反射获取对应函数要保证对应的函数是导出类型的函数
-	method:=val.MethodByName("Printhello")
+	method := val.MethodByName("Printhello")
 	method.Call([]reflect.Value{})
 }
-func main(){
-getfuncbyname()
+func main() {
+	getfuncbyname()
 }
