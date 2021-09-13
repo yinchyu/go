@@ -1,33 +1,47 @@
 package main
 
 import (
-	"fmt"
-	"reflect"
 	"sync"
 )
 
 var (
 	once sync.Once
+	mux  sync.Mutex
 )
 
-func single() {
-	fmt.Println("执行的次数")
+type sigleton struct {
+	num int
 }
 
-func singleleton() {
-	var once sync.Once
-	fmt.Println(once)
-	//  相当于实现了单例模式
-	once.Do(single)
-	fmt.Println(once)
-	once.Do(single)
-	// 获取对应没有导出的值， 通过反射获取对应的值， valueof.fieldbyname()
-	fmt.Println(reflect.ValueOf(once).FieldByName("done"))
-	once.Do(single)
-	fmt.Println(reflect.ValueOf(once))
-	once.Do(single)
-	fmt.Println(reflect.ValueOf(once))
+var singletinstance *sigleton
+
+// 恶汉模式
+// var(
+// 	singletinstance=&sigleton{12}
+// )
+
+// singleton1 单例模式使用once 执行
+func singleton1(n int) {
+	once.Do(func() {
+		singletinstance = &sigleton{n}
+	})
 }
+
+// singleton2 两次条件判断
+func singleton2(n int) *sigleton {
+	if singletinstance == nil {
+		mux.Lock()
+		// 可以将加锁的时间放到第二次判断nil之前
+		if singletinstance == nil {
+			singletinstance = &sigleton{n}
+		}
+		mux.Unlock()
+	}
+	return singletinstance
+}
+
 func main() {
-	singleleton()
+	n := 12
+	singleton1(n)
+	singleton2(n)
 }
