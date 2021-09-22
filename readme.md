@@ -1,11 +1,16 @@
 ### go 目录
 
 #### cron 定时任务
-
 ```
 1.  实现进程启动， 进程重启， 进程定时重启，三种功能， 
 2.  调用的库    gopsutil  crontab v3
 3.task.json  配置文件   crontab.go 任务调度
+```
+#### chatroom
+```
+1.  实现对应的goroutine管理
+2.  前端的websocket js
+3.  单例广播模式
 ```
 #### mod 引用关系
 

@@ -1,0 +1,19 @@
+syntax="proto3";
+package main;
+
+
+message simplerequest{
+int32 add1=1;
+int32 add2=2;
+string value=3;
+};
+
+message simpleresponse{
+int32 sum=1;
+string value=2;
+};
+
+
+service simple {
+rpc getinfo(simplerequest) returns (simpleresponse){};
+}
