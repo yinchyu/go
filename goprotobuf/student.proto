@@ -1,0 +1,13 @@
+syntax = "proto3";
+package main;
+
+// this is a comment
+message StudentList{
+// 注意后边的repeat 是怎么进行操作的
+message Student {
+    string name = 1;
+    bool male = 2;
+   repeated int32 scores = 3;
+}
+repeated Student TargetList=1;
+}
