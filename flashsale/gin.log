@@ -1,0 +1,41 @@
+[GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
+
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET    /:gid                     --> main.show (3 handlers)
+[GIN-debug] GET    /handle                   --> main.handle (3 handlers)
+[GIN-debug] GET    /handlewithlock           --> main.handlewithlock (3 handlers)
+[GIN-debug] GET    /handleone                --> main.handleone (3 handlers)
+[GIN-debug] GET    /handletwo                --> main.handletwo (3 handlers)
+[GIN-debug] GET    /handlechannel            --> main.handlechannel (3 handlers)
+[GIN-debug] GET    /log                      --> main.logprocess (3 handlers)
+[GIN-debug] Listening and serving HTTP on :8080
+[GIN] 2021/10/03 - 17:03:12 | 200 |      2.2735ms |             ::1 | GET      "/log"
+[GIN] 2021/10/03 - 17:03:29 | 200 |      8.0344ms |             ::1 | GET      "/log"
+[GIN] 2021/10/03 - 17:03:30 | 200 |      9.6755ms |             ::1 | GET      "/log"
+[GIN] 2021/10/03 - 17:03:31 | 200 |      8.0188ms |             ::1 | GET      "/log"
+[GIN] 2021/10/03 - 17:03:32 | 200 |     10.3783ms |             ::1 | GET      "/log"
+[GIN] 2021/10/03 - 17:03:32 | 200 |      9.3431ms |             ::1 | GET      "/log"
+[GIN] 2021/10/03 - 17:03:34 | 200 |      6.8483ms |             ::1 | GET      "/log"
+[GIN] 2021/10/03 - 17:03:34 | 200 |     13.2801ms |             ::1 | GET      "/log"
+[GIN] 2021/10/03 - 17:03:35 | 200 |      8.3764ms |             ::1 | GET      "/log"
+[GIN] 2021/10/03 - 17:03:35 | 200 |      8.9308ms |             ::1 | GET      "/log"
+[GIN] 2021/10/03 - 17:03:37 | 200 |   11.5014237s |             ::1 | GET      "/handlewithlock?gid=1197"
+[GIN] 2021/10/03 - 17:03:40 | 200 |     16.5228ms |             ::1 | GET      "/log"
+[GIN] 2021/10/03 - 17:03:41 | 200 |      7.8377ms |             ::1 | GET      "/log"
+[GIN] 2021/10/03 - 17:03:42 | 200 |      9.8795ms |             ::1 | GET      "/log"
+[GIN] 2021/10/03 - 17:03:42 | 200 |     19.3631ms |             ::1 | GET      "/log"
+[GIN] 2021/10/03 - 17:03:42 | 200 |     11.2313ms |             ::1 | GET      "/log"
+[GIN] 2021/10/03 - 17:03:43 | 200 |      6.7861ms |             ::1 | GET      "/log"
+[GIN] 2021/10/03 - 17:03:43 | 200 |      7.5346ms |             ::1 | GET      "/log"
+[GIN] 2021/10/03 - 17:03:43 | 200 |      8.5302ms |             ::1 | GET      "/log"
+[GIN] 2021/10/03 - 17:03:44 | 200 |      9.2174ms |             ::1 | GET      "/log"
+[GIN] 2021/10/03 - 17:03:44 | 200 |     10.0998ms |             ::1 | GET      "/log"
+[GIN] 2021/10/03 - 17:03:45 | 200 |      5.0197ms |             ::1 | GET      "/log"
+[GIN] 2021/10/03 - 17:03:45 | 200 |      7.0378ms |             ::1 | GET      "/log"
+[GIN] 2021/10/03 - 17:03:45 | 200 |      9.0018ms |             ::1 | GET      "/log"
+[GIN] 2021/10/03 - 17:06:54 | 200 |       514.8µs |             ::1 | GET      "/log"
+[GIN] 2021/10/03 - 17:06:54 | 200 |      7.9705ms |             ::1 | GET      "/log"
+[GIN] 2021/10/03 - 17:06:54 | 200 |     12.3969ms |             ::1 | GET      "/log"
