@@ -1,0 +1,16 @@
+{
+  "Firstname": "Jan",
+  "Lastname": "Kersschot",
+  "Address": [
+    {
+      "Ty": "private",
+      "City": "Aartselaar",
+      "Country": "Belgium"
+    },
+    {
+      "Ty": "work",
+      "City": "Boom",
+      "Country": "Belgium"
+    }
+  ]
+}

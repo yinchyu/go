@@ -3,9 +3,7 @@ package main
 import (
 	"database/sql"
 	"fmt"
-	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
-	"log"
 	"time"
 )
 
@@ -23,14 +21,52 @@ type User struct {
 	Birthday *time.Time
 }
 
-func main() {
-	// 参考 https://github.com/go-sql-driver/mysql#dsn-data-source-name 获取详情
-	dsn := "root:123456@tcp(www.yinchangyu.top:3306)/gorm?charset=utf8mb4&parseTime=True&loc=Local"
-	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
-	if err != nil {
-		log.Println(err)
-	}
-	// db.AutoMigrate(new(User))
+type Student struct {
+	gorm.Model
+	Name     string
+	ClassId  int
+	Classs    Class `gorm:"foreignkey:ClassName;reference:ClassId"`
+	Teachers []Teacher `gorm:"many2many:student_teacher"`
+}
+type Class struct {
+	gorm.Model
+	ClassId int
+	ClassName string
+}
+
+
+
+type Teacher struct {
+	gorm.Model
+	TeacherName string
+	classId int
+	TeachClass  Class `gorm:"foreignkey:ClassName;reference:ClassId"`
+	Students  []Student
+}
+
+
+// User 拥有并属于多种 language，`user_languages` 是连接表
+type Names struct {
+	gorm.Model
+	Name         string
+	// 这个表中有令一个表的主键,作为这个表的外键来操作， 才可以进行处理操作
+	CompanyRefer int
+	Company      Company `gorm:"foreignKey:CompanyRefer"`
+	// 使用 CompanyRefer 作为外键
+}
+
+type Company struct {
+	// 生成表格之后对应的属性可能不会进行更改
+	ID   int `gorm:"type:int"`
+	Name string
+	Age int
+	Read int
+}
+
+func AddUser(db *gorm.DB){
+	db.AutoMigrate(new(User))
+
+
 	// var users = []User{{Name: "jinzhu1"}, {Name: "jinzhu2"}, {Name: "jinzhu3"}}
 	// db.Create(&users)
 	// batch insert from `[]map[string]interface{}{}`
@@ -49,3 +85,13 @@ func main() {
 	// 默认填充的是时间的0值
 	fmt.Println(times.Second())
 }
+//func main() {
+//	// 参考 https://github.com/go-sql-driver/mysql#dsn-data-source-name
+//	dsn := "root:123456@tcp(www.yinchangyu.top:3306)/gorm?charset=utf8mb4&parseTime=True&loc=Local"
+//	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
+//	if err != nil {
+//		log.Println(err)
+//	}
+//	db.AutoMigrate(new(Names))
+//
+//}

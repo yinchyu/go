@@ -1,0 +1,45 @@
+[
+ {
+  "job_name": "prometheus",
+  "static_configs": [
+   {
+    "targets": [
+     "www.yinchangyu.top:9090"
+    ]
+   }
+  ],
+  "params": {
+   "format": null
+  }
+ },
+ {
+  "job_name": "node",
+  "static_configs": [
+   {
+    "targets": [
+     "www.yinchangyu.top:9100"
+    ]
+   }
+  ],
+  "params": {
+   "format": null
+  }
+ },
+ {
+  "job_name": "netdata",
+  "static_configs": [
+   {
+    "targets": [
+     "www.yinchangyu.top:19999"
+    ]
+   }
+  ],
+  "params": {
+   "format": [
+    "prometheus"
+   ]
+  },
+  "honor_labels": true,
+  "metrics_path": "/api/v1/allmetrics"
+ }
+]
