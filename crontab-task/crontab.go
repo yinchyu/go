@@ -23,6 +23,7 @@ type task struct {
 	bufin            *bytes.Buffer
 	bufout           *bytes.Buffer
 }
+
 type tasklist struct {
 	Tasklist  []task `json:"tasklist"`
 	Checktime int    `json:"checktime"`
@@ -44,11 +45,14 @@ func readfile(filepath string) tasklist {
 	return allltask
 }
 func CheckProcessAlive(taskmap *map[string]task, checktime int) {
+	// 设置一个触发器一直不停的进行触发
 	timetricker := time.Tick(time.Second * time.Duration(checktime))
 	for timer := range timetricker {
 		fmt.Println("==================check alive==================")
 		for _, taskname := range *taskmap {
 			pid := taskname.terminal.Process.Pid
+
+			// 检查一个pid 进程是否真的存在
 			pn, err := process.NewProcess(int32(pid))
 			if err == nil {
 				// 获取command
@@ -68,17 +72,20 @@ func CheckProcessAlive(taskmap *map[string]task, checktime int) {
 	}
 
 }
+
 func (processd *task) KillProcess() {
 	pid := processd.terminal.Process.Pid
+	// 获取一个进程的pid 然后通过taskkill 杀死
 	cmd := exec.Command("taskkill", "/f", "/pid", strconv.Itoa(pid))
+	// start  执行命令不等待命令执行完成， 直接返回，如果成功就会更新Process 中的字段
 	err := cmd.Start()
 	if err != nil {
 		fmt.Println(time.Now(), pid, "kill process failed", err)
 	} else {
 		fmt.Println(time.Now(), pid, "kill process succeed")
 	}
-
 }
+
 func (process *task) StartProcess(alltast *map[string]task) {
 	list := strings.Split(process.Execcommand, " ")
 	args := make([]string, 0, len(list))
@@ -87,11 +94,16 @@ func (process *task) StartProcess(alltast *map[string]task) {
 			args = append(args, list[index])
 		}
 	}
+	// 将可执行文件的参数和命令进行区分操作
 	cmd := exec.Command(args[0], args[1:]...)
+	// 更改对应的工作目录
 	cmd.Dir = process.Workingdirectory
+	// 将一个程序的执行过程放到对应的每一个任务结构体中
 	process.terminal = cmd
+
 	err := process.terminal.Start()
-	//  对map 进行加锁
+
+	//  对map 进行加锁，更新结构体
 	mux.Lock()
 	(*alltast)[process.Taskname] = *process
 	mux.Unlock()
@@ -100,6 +112,7 @@ func (process *task) StartProcess(alltast *map[string]task) {
 	}
 	fmt.Println(time.Now(), process.Taskname, "start process succeed")
 }
+
 func (processd *task) Run() {
 	t := taskmap[processd.Taskname]
 	fmt.Println("enter timmer ,kill process ............", t.terminal.Process.Pid)
@@ -111,6 +124,7 @@ var mux sync.Mutex
 var taskmap map[string]task
 
 func main() {
+	// 每一个进程执行都传递了taskmap 的具体地址
 	taskmap = make(map[string]task)
 	alltast := readfile("./task.json")
 	timmer := cron.New()
