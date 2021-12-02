@@ -7,21 +7,39 @@ import (
 )
 
 type H   map[string]interface{}
-type  Context struct {
-	Writer  http.ResponseWriter
-	Req * http.Request
+type Context struct {
+	// origin objects
+	Writer http.ResponseWriter
+	Req    *http.Request
+	// request info
+	Path   string
 	Method string
-	Path string
 	Params map[string]string
-	Statuscode int
+	// response info
+	StatusCode int
+	// middleware
+	handlers []HandlerFunc
+	index    int
 }
 
-func newContext(w http.ResponseWriter, req *http.Request) *Context{
-	return  &Context{
-		Writer : w,
-		Req: req,
+func newContext(w http.ResponseWriter, req *http.Request) *Context {
+	return &Context{
+		Path:   req.URL.Path,
 		Method: req.Method,
-		Path: req.URL.Path,
+		Req:    req,
+		Writer: w,
+		index:  -1,
+	}
+}
+
+
+
+
+func (c *Context) Next() {
+	c.index++
+	s := len(c.handlers)
+	for ; c.index < s; c.index++ {
+		c.handlers[c.index](c)
 	}
 }
 
@@ -36,7 +54,7 @@ func (c *Context) Query(key string)string{
 	return c.Req.URL.Query().Get(key)
 }
 func (c *Context)Status(code int){
-	c.Statuscode=code
+	//c.Statuscode=code
 	c.Writer.WriteHeader(code)
 }
 func (c *Context) SetHeader(key string, value string) {
@@ -68,3 +86,4 @@ func (c *Context) HTML(code int, html string) {
 	c.Status(code)
 	c.Writer.Write([]byte(html))
 }
+
