@@ -249,7 +249,6 @@
 ```go 
 ----min-component\
     |----atomic.go
-    |----callon.go
     |----channelchain.go
     |----concurrentmap.go
     |----flagprase.go
@@ -257,6 +256,7 @@
     |----getemial.go
     |----getfuncbyname.go
     |----goroutineleak.go
+    |----interfaceslice.go
     |----ioreader.go
     |----lrucache.go
     |----mmap.go
