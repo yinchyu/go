@@ -1,14 +1,14 @@
 package cache
 
 import (
-	"main/cache/lru"
+	"cache/lru"
 	"sync"
 )
 
 type cache struct {
-	mu         sync.Mutex
+	mu sync.Mutex
 	// 在基本的lru缓存中增加锁和缓存的字节多少
-	lru        *lru.Cache
+	lru *lru.Cache
 	//就是底层的maxbytes
 	cacheBytes int64
 }
