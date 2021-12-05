@@ -39,7 +39,11 @@ func startAPIServer(apiAddr string, gee *Group) {
 	http.Handle("/api", http.HandlerFunc(
 		func(w http.ResponseWriter, r *http.Request) {
 			key := r.URL.Query().Get("key")
+
 			view, err := gee.Get(key)
+			// 获取到数据
+			fmt.Println("请求的key 是: ", key)
+			fmt.Println("获取到的数据是: ",string(view.ByteSlice()))
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 				return
@@ -65,6 +69,7 @@ func TestPeer(t *testing.T) {
 	port = 8001
 	api = true
 	apiAddr := "http://localhost:9999"
+
 	addrMap := map[int]string{
 		8001: "http://localhost:8001",
 		8002: "http://localhost:8002",
@@ -81,4 +86,5 @@ func TestPeer(t *testing.T) {
 		go startAPIServer(apiAddr, gee)
 	}
 	startCacheServer(addrMap[port], addrs, gee)
+	con
 }
