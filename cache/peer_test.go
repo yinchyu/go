@@ -43,7 +43,7 @@ func startAPIServer(apiAddr string, gee *Group) {
 			view, err := gee.Get(key)
 			// 获取到数据
 			fmt.Println("请求的key 是: ", key)
-			fmt.Println("获取到的数据是: ",string(view.ByteSlice()))
+			fmt.Println("获取到的数据是: ", string(view.ByteSlice()))
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 				return
@@ -86,5 +86,5 @@ func TestPeer(t *testing.T) {
 		go startAPIServer(apiAddr, gee)
 	}
 	startCacheServer(addrMap[port], addrs, gee)
-	con
+
 }

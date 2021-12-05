@@ -1,6 +1,8 @@
 package cache
 
 import (
+	"cache/geecachepb/protos"
+	"cache/singleflight"
 	"fmt"
 	"log"
 	"sync"
@@ -19,12 +21,36 @@ func (f GetterFunc) Get(key string) ([]byte, error) {
 	return f(key)
 }
 
-// A Group is a cache namespace and associated data loaded spread over
 type Group struct {
 	name      string
 	getter    Getter
 	mainCache cache
 	peers     PeerPicker
+	// use singleflight.Group to make sure that
+	// each key is only fetched once
+	loader *singleflight.Group
+}
+
+func (g *Group) load(key string) (value ByteView, err error) {
+	// each key is only fetched once (either locally or remotely)
+	// regardless of the number of concurrent callers.
+	viewi, err := g.loader.Do(key, func() (interface{}, error) {
+		if g.peers != nil {
+			if peer, ok := g.peers.PickPeer(key); ok {
+				if value, err = g.getFromPeer(peer, key); err == nil {
+					return value, nil
+				}
+				log.Println("[GeeCache] Failed to get from peer", err)
+			}
+		}
+
+		return g.getLocally(key)
+	})
+
+	if err == nil {
+		return viewi.(ByteView), nil
+	}
+	return
 }
 
 // RegisterPeers registers a PeerPicker for choosing remote peer
@@ -35,25 +61,35 @@ func (g *Group) RegisterPeers(peers PeerPicker) {
 	g.peers = peers
 }
 
-func (g *Group) load(key string) (value ByteView, err error) {
-	if g.peers != nil {
-		if peer, ok := g.peers.PickPeer(key); ok {
-			if value, err = g.getFromPeer(peer, key); err == nil {
-				return value, nil
-			}
-			log.Println("[GeeCache] Failed to get from peer", err)
-		}
-	}
-
-	return g.getLocally(key)
-}
+//func (g *Group) load(key string) (value ByteView, err error) {
+//	if g.peers != nil {
+//		if peer, ok := g.peers.PickPeer(key); ok {
+//			if value, err = g.getFromPeer(peer, key); err == nil {
+//				return value, nil
+//			}
+//			log.Println("[GeeCache] Failed to get from peer", err)
+//		}
+//	}
+//
+//	return g.getLocally(key)
+//}
 
 func (g *Group) getFromPeer(peer PeerGetter, key string) (ByteView, error) {
-	bytes, err := peer.Get(g.name, key)
+	//bytes, err := peer.Get(g.name, key)
+	//if err != nil {
+	//	return ByteView{}, err
+	//}
+	//return ByteView{b: bytes}, nil
+	req := &protos.Request{
+		Group: g.name,
+		Key:   key,
+	}
+	res := &protos.Response{}
+	err := peer.Get(req, res)
 	if err != nil {
 		return ByteView{}, err
 	}
-	return ByteView{b: bytes}, nil
+	return ByteView{b: res.Value}, nil
 }
 
 var (
@@ -72,6 +108,7 @@ func NewGroup(name string, cacheBytes int64, getter Getter) *Group {
 		name:      name,
 		getter:    getter,
 		mainCache: cache{cacheBytes: cacheBytes},
+		loader:    &singleflight.Group{},
 	}
 	groups[name] = g
 	return g
