@@ -2,19 +2,26 @@ package session
 
 import (
 	"database/sql"
+	"orm/dialect"
 	"orm/log"
+	"orm/schema"
 	"strings"
 )
 
 type Session struct {
 	db *sql.DB
 	// 封装了sql 语法
-	sql     strings.Builder
-	sqlVars []interface{}
+	dialect  dialect.Dialect
+	refTable *schema.Schema
+	sql      strings.Builder
+	sqlVars  []interface{}
 }
 
-func New(db *sql.DB) *Session {
-	return &Session{db: db}
+func New(db *sql.DB, dialect dialect.Dialect) *Session {
+	return &Session{
+		db:      db,
+		dialect: dialect,
+	}
 }
 
 func (s *Session) Clear() {

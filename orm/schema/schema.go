@@ -15,8 +15,9 @@ type Field struct {
 
 // Schema represents a table of database
 type Schema struct {
-	Model      interface{}
-	Name       string
+	Model interface{}
+	Name  string
+	// 获取一个字段的类型
 	Fields     []*Field
 	FieldNames []string
 	fieldMap   map[string]*Field

@@ -8,11 +8,18 @@ import (
 	"time"
 )
 
-// 主要实现类型的反射
+// 主要实现类型的反射， sqlite3 实现了对应的接口
 type sqlite3 struct {
-
 }
 
+var _ Dialect = (*sqlite3)(nil)
+
+// 初始化的时候注册对应的对象， 然后再调用
+// 得到的是空的结构体， 但是可以调用对应的函数方法就可以了
+func init() {
+
+	RegisterDialect("sqlite3", &sqlite3{})
+}
 func (s *sqlite3) DltaTypeOf(typ reflect.Value) string {
 
 	switch typ.Kind() {
@@ -25,12 +32,12 @@ func (s *sqlite3) DltaTypeOf(typ reflect.Value) string {
 		return "bigint"
 	case reflect.String:
 		return "text"
-	case reflect.Float32,reflect.Float64:
+	case reflect.Float32, reflect.Float64:
 		return "real"
-	case reflect.Array,reflect.Slice:
+	case reflect.Array, reflect.Slice:
 		return "blob"
 	case reflect.Struct:
-		if _,ok:=typ.Interface().(time.Time);ok{
+		if _, ok := typ.Interface().(time.Time); ok {
 			return "datetime"
 		}
 	}
@@ -39,14 +46,6 @@ func (s *sqlite3) DltaTypeOf(typ reflect.Value) string {
 }
 
 func (s *sqlite3) TableExistSql(tableName string) (string, []interface{}) {
-	panic("implement me")
+	args := []interface{}{tableName}
+	return "SELECT name FROM sqlite_master WHERE type='table' and name = ?", args
 }
-
-var _ Dialect =(*sqlite3)(nil)
-
-
- func init(){
-	 RegisterDialect("sqlite3",&sqlite3{})
- }
-
-

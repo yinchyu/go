@@ -2,13 +2,15 @@ package main
 
 import (
 	"database/sql"
+	"orm/dialect"
 	"orm/log"
 	"orm/session"
 )
 
 type Engine struct {
 	// 就封装 database 中的DB字段
-	db *sql.DB
+	db      *sql.DB
+	dialect dialect.Dialect
 }
 
 func NewEngine(driver, source string) (e *Engine, err error) {
@@ -23,7 +25,13 @@ func NewEngine(driver, source string) (e *Engine, err error) {
 		log.Error(err)
 		return
 	}
-	e = &Engine{db: db}
+	// 创建的时候也需要  dialect
+	dialect, ok := dialect.GetDialect(driver)
+	if !ok {
+		log.Errorf("dialect %s Not Found", driver)
+		return
+	}
+	e = &Engine{db: db, dialect: dialect}
 	log.Info("Connect database success")
 	return
 }
@@ -36,5 +44,5 @@ func (engine *Engine) Close() {
 }
 
 func (engine *Engine) NewSession() *session.Session {
-	return session.New(engine.db)
+	return session.New(engine.db, engine.dialect)
 }
