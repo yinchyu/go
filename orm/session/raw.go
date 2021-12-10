@@ -12,6 +12,7 @@ type Session struct {
 	db *sql.DB
 	// 封装了sql 语法
 	dialect  dialect.Dialect
+	clause   schema.Clause
 	refTable *schema.Schema
 	sql      strings.Builder
 	sqlVars  []interface{}
@@ -27,6 +28,7 @@ func New(db *sql.DB, dialect dialect.Dialect) *Session {
 func (s *Session) Clear() {
 	s.sql.Reset()
 	s.sqlVars = nil
+	s.clause = schema.Clause{}
 }
 
 func (s *Session) DB() *sql.DB {
