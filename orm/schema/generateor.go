@@ -2,6 +2,7 @@ package schema
 
 import (
 	"fmt"
+	"orm/log"
 	"strings"
 )
 
@@ -29,6 +30,7 @@ func (c *Clause) Set(name Type, vars ...interface{}) {
 	sql, vars := generators[name](vars...)
 	c.sql[name] = sql
 	c.sqlVars[name] = vars
+	log.Info(sql, vars)
 }
 
 func (c *Clause) Build(orders ...Type) (string, []interface{}) {
@@ -40,6 +42,7 @@ func (c *Clause) Build(orders ...Type) (string, []interface{}) {
 			vars = append(vars, c.sqlVars[order]...)
 		}
 	}
+	log.Info(sqls, vars)
 	return strings.Join(sqls, " "), vars
 }
 

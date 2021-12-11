@@ -14,6 +14,7 @@ func (s *Session) Insert(values ...interface{}) (int64, error) {
 	}
 
 	s.clause.Set(schema.VALUES, recordValues...)
+
 	sql, vars := s.clause.Build(schema.INSERT, schema.VALUES)
 	result, err := s.Raw(sql, vars...).Exec()
 	if err != nil {
