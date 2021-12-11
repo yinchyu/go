@@ -11,8 +11,9 @@ import (
 type Session struct {
 	db *sql.DB
 	// 封装了sql 语法
-	dialect  dialect.Dialect
-	clause   schema.Clause
+	dialect dialect.Dialect
+	clause  schema.Clause
+	// 存储了所有解析出来的对象
 	refTable *schema.Schema
 	sql      strings.Builder
 	sqlVars  []interface{}
@@ -45,6 +46,7 @@ func (s *Session) Raw(sql string, values ...interface{}) *Session {
 
 // Exec raw sql with sqlVars
 func (s *Session) Exec() (result sql.Result, err error) {
+	// session 封装了db.exec
 	defer s.Clear()
 	log.Info(s.sql.String(), s.sqlVars)
 	if result, err = s.DB().Exec(s.sql.String(), s.sqlVars...); err != nil {

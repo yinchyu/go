@@ -26,12 +26,12 @@ func NewEngine(driver, source string) (e *Engine, err error) {
 		return
 	}
 	// 创建的时候也需要  dialect
-	dialect, ok := dialect.GetDialect(driver)
+	dialects, ok := dialect.GetDialect(driver)
 	if !ok {
 		log.Errorf("dialect %s Not Found", driver)
 		return
 	}
-	e = &Engine{db: db, dialect: dialect}
+	e = &Engine{db: db, dialect: dialects}
 	log.Info("Connect database success")
 	return
 }
