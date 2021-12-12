@@ -23,12 +23,14 @@ type Worker struct {
 // run starts a goroutine to repeat the process
 // that performs the function calls.
 func (w *Worker) run() {
+	// 正在运行的数目+1
 	w.pool.incRunning()
 	//run 是非阻塞的
 	go func() {
 		defer func() {
 			if p := recover(); p != nil {
 				w.pool.decRunning()
+				// 并不是直接关掉， 而是放到缓冲区中间
 				w.pool.workerCache.Put(w)
 				if w.pool.PanicHandler != nil {
 					w.pool.PanicHandler(p)

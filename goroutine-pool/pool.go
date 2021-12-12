@@ -178,22 +178,25 @@ func (p *Pool) decRunning() {
 
 // retrieveWorker returns a available worker to run the tasks.
 func (p *Pool) retrieveWorker() *Worker {
+	// 一个worker 就是一个已经启动的goroutine
 	var w *Worker
-
 	p.lock.Lock()
 	idleWorkers := p.workers
 	n := len(idleWorkers) - 1
 	if n >= 0 {
 		w = idleWorkers[n]
 		idleWorkers[n] = nil
+		//获取的方法是最后一个
 		p.workers = idleWorkers[:n]
 		p.lock.Unlock()
 
 	} else if p.Running() < p.Cap() {
 		p.lock.Unlock()
 		if cacheWorker := p.workerCache.Get(); cacheWorker != nil {
+			// 类型断言
 			w = cacheWorker.(*Worker)
 		} else {
+			// 两个地方都拿不到就会新创建
 			w = &Worker{
 				pool: p,
 				task: make(chan func(), workerChanCap),
@@ -222,6 +225,7 @@ func (p *Pool) revertWorker(worker *Worker) bool {
 	if CLOSED == atomic.LoadInt32(&p.release) {
 		return false
 	}
+	// 将一个worker 放到pool中
 	worker.recycleTime = time.Now()
 	p.lock.Lock()
 	p.workers = append(p.workers, worker)
