@@ -35,6 +35,7 @@ func demoFunc() {
 	time.Sleep(time.Second * 1)
 }
 func demoPoolFunc(args interface{}) {
+	// 总结了一个道理， 就是最开始的时候需要一直的往前走， 不要太在意细节
 	n := args.(int)
 	time.Sleep(time.Duration(n) * time.Millisecond)
 }
@@ -46,6 +47,7 @@ func TestAntsPoolWaitToGetWorker(t *testing.T) {
 	defer p.Release()
 
 	for i := 0; i < n; i++ {
+		//在另外的栈空间上有wg变量的存在
 		wg.Add(1)
 		p.Submit(func() {
 			demoPoolFunc(Param)
@@ -54,6 +56,7 @@ func TestAntsPoolWaitToGetWorker(t *testing.T) {
 	}
 	wg.Wait()
 	t.Logf("pool, running workers number:%d", p.Running())
+	//运行时的监控指标
 	mem := runtime.MemStats{}
 	runtime.ReadMemStats(&mem)
 	curMem = mem.TotalAlloc/MiB - curMem
