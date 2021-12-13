@@ -31,7 +31,7 @@ func NewSimpleClient(cc grpc.ClientConnInterface) SimpleClient {
 
 func (c *simpleClient) Getinfo(ctx context.Context, in *Simplerequest, opts ...grpc.CallOption) (*Simpleresponse, error) {
 	out := new(Simpleresponse)
-	err := c.cc.Invoke(ctx, "/main.simple/getinfo", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/pb.simple/getinfo", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -76,7 +76,7 @@ func _Simple_Getinfo_Handler(srv interface{}, ctx context.Context, dec func(inte
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/main.simple/getinfo",
+		FullMethod: "/pb.simple/getinfo",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(SimpleServer).Getinfo(ctx, req.(*Simplerequest))
@@ -88,7 +88,7 @@ func _Simple_Getinfo_Handler(srv interface{}, ctx context.Context, dec func(inte
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Simple_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "main.simple",
+	ServiceName: "pb.simple",
 	HandlerType: (*SimpleServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -97,5 +97,5 @@ var Simple_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "pb/simple.proto",
+	Metadata: "simple.proto",
 }
