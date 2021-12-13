@@ -10,6 +10,7 @@ import (
 )
 
 type Grpcservice struct {
+	pb.UnimplementedSimpleServer
 }
 
 func (*Grpcservice) Getinfo(ctx context.Context, req *pb.Simplerequest) (*pb.Simpleresponse, error) {
@@ -22,7 +23,11 @@ func (*Grpcservice) Getinfo(ctx context.Context, req *pb.Simplerequest) (*pb.Sim
 	// return nil, status.Errorf(codes.Unimplemented, "method Getinfo not implemented")
 }
 
-func main() {
+func (receiver Grpcservice) name() {
+
+}
+
+func Server() {
 	listener, err := net.Listen("tcp", ":8080")
 	if err != nil {
 		log.Println(err)
