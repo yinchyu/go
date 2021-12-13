@@ -109,8 +109,6 @@ func NewTimingPool(size, expiry int) (*Pool, error) {
 	return p, nil
 }
 
-//---------------------------------------------------------------------------
-
 // Submit submits a task to this pool.
 func (p *Pool) Submit(task func()) error {
 	if CLOSED == atomic.LoadInt32(&p.release) {
