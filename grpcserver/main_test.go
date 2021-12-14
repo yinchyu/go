@@ -1,5 +1,5 @@
 package main
-
+//go:generate protoc --go_out=. ./simple.proto --go-grpc_out=. ./simple.proto
 import (
 	"fmt"
 	"testing"
