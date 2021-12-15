@@ -13,10 +13,13 @@ import (
 var (
 	client = redis.NewClient(&redis.Options{
 		Addr: "42.193.190.143:6388",
-		DB:   1,
-		//Password: "123456",
+		DB:   0,
 	})
 )
+
+func Setkey(key string, value int) {
+	client.Set(key, value, -1)
+}
 
 func SetOp(number string) (string, error) {
 	stringmap := client.HGetAll(number)
@@ -45,12 +48,14 @@ func SecKill() {
 		// 直接使用watch 会导致很多的碰撞
 		e := client.Watch(func(tx *redis.Tx) error {
 			remain, _ := client.Get(value).Int()
+			log.Println("the remaining :", remain)
 			if remain > 0 {
 				client.Decr(value)
 				c.JSON(200, gin.H{
-					"code":  200,
-					"id":    value,
-					"state": true,
+					"code":   200,
+					"id":     value,
+					"state":  true,
+					"remain": remain,
 				})
 			} else {
 				c.JSON(200, gin.H{

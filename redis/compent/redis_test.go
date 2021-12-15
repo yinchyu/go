@@ -16,6 +16,7 @@ func BenchmarkAuthCode2(b *testing.B) {
 	}
 }
 func TestClient(t *testing.T) {
-	cmd := client.Do("Set", 5, "City", "北京")
+	cmd := client.Do("Set", 5, "北京")
 	fmt.Println(cmd.String())
+	fmt.Println(client.Get("5"))
 }
