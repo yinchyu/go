@@ -394,3 +394,56 @@ func rain(str string) {
 
 	fmt.Println("[" + strings.Join(res, ",") + "]")
 }
+
+
+// 版本号进行排序操作
+type Mystring []string
+
+func (x Mystring) Len() int           { return len(x) }
+func (x Mystring) Less(i, j int) bool { return Cmp(x[i], x[j]) }
+func (x Mystring) Swap(i, j int)      { x[i], x[j] = x[j], x[i] }
+
+func CmpSlice(al, bl []string) bool {
+	// al must always less than  bl
+	for i := range al {
+		if al[i] == bl[i] {
+			continue
+		} else if al[i] < bl[i] {
+			return true
+		} else {
+			return false
+		}
+	}
+	return false
+}
+func Cmp(a, b string) bool {
+	a = strings.Trim(a, " ")
+	b = strings.Trim(b, " ")
+	if a == b {
+		return false
+	} else {
+		splita := strings.Split(a, ".")
+		splitb := strings.Split(b, ".")
+		if len(splita) > len(splitb) {
+			return !CmpSlice(splitb, splita)
+		} else {
+			return CmpSlice(splita, splitb)
+		}
+	}
+}
+
+func VersionCmp() {
+	a := "1"
+	b := "1.1"
+	fmt.Println(Cmp(a, b))
+}
+
+func main() {
+	versions := []string{"1.2", "1.1.1.2", "2.1", "2.0", "0.3.1", "0.1"}
+	sort.Slice(versions, func(i, j int) bool {
+		return Cmp(versions[i], versions[j])
+	})
+	fmt.Println(versions)
+	fmt.Println(strings.Split("1.2.3", "."))
+	fmt.Println("1.10" > "1.1.1")
+}
