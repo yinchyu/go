@@ -12,9 +12,9 @@ import (
 
 var (
 	client = redis.NewClient(&redis.Options{
-		Addr:     "www.yinchangyu.top:6379",
-		DB:       1,
-		Password: "123456",
+		Addr: "42.193.190.143:6388",
+		DB:   1,
+		//Password: "123456",
 	})
 )
 

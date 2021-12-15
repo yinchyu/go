@@ -1,6 +1,9 @@
 package compent
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 func BenchmarkAuthCode(b *testing.B) {
 	for i := 0; i < b.N; i++ {
@@ -11,4 +14,8 @@ func BenchmarkAuthCode2(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		AuthCode2()
 	}
+}
+func TestClient(t *testing.T) {
+	cmd := client.Do("Set", 5, "City", "北京")
+	fmt.Println(cmd.String())
 }
