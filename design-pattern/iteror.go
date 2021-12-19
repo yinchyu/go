@@ -2,6 +2,7 @@ package main
 
 import "fmt"
 
+// 无论是什么对象都可以进行迭代操作
 type numberiter struct {
 	start, end int
 	cur        int
