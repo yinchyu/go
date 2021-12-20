@@ -94,6 +94,7 @@ func (process *task) StartProcess(alltast *map[string]task) {
 			args = append(args, list[index])
 		}
 	}
+	fmt.Println("command:", args)
 	// 将可执行文件的参数和命令进行区分操作
 	cmd := exec.Command(args[0], args[1:]...)
 	// 更改对应的工作目录
