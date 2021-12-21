@@ -108,10 +108,6 @@ func (p Person) String() string {
 func main() {
 
 	queue := NewQueue(100)
-	//putdata(queue)
-	//getdata(queue)
-	//for{
-	//}
 	queue.Put("hello world")
 	fmt.Println(queue.Get())
 

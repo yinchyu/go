@@ -14,14 +14,14 @@ import (
 //, ">>", "log.txt"
 func main() {
 	cmd := exec.Command("python", "test.py")
-	cmd.Dir = "D:/桌面文件夹/gotest/test3/"
+	cmd.Dir = "D:\\桌面文件夹\\go\\redirect-file"
 	outter, _ := cmd.StdoutPipe()
 	err := cmd.Start()
 	if err != nil {
 		fmt.Println(time.Now(), "start process failed", err)
 	}
 	fmt.Println(time.Now(), "start process succeed")
-	logfile, err := os.Create("D:/桌面文件夹/gotest/test3/log.txt")
+	logfile, err := os.Create("D:\\桌面文件夹\\go\\redirect-file\\log.txt")
 	defer logfile.Close()
 	if err != nil {
 		log.Println(err)
