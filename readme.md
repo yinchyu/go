@@ -7,6 +7,12 @@
     |----maxlength_word.go
     |----trietree.go
 ```
+#### auth-code
+```go 
+----auth-code\
+    |----code_test.go
+    |----redis.go
+```
 #### cache
 ```go 
 ----cache\
