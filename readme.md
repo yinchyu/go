@@ -6,12 +6,6 @@
     |----linklist.go
     |----maxlength_word.go
     |----trietree.go
-1.  // MinChange  找硬币这个问题直接使用一维动态规划进行求解， 和背包问题有些类似
-2.  // heapsorttest 百度一面 手写堆排序
-3. // DeferFunc 观察defer的输出顺序
-4. //ReplaceCompare 将所有的ab 替换成bba 的次数
-5.//countMaxActivity  不同时间区间进行合并
-6.// startgorountine 启动goroutine 的顺序测试
 ```
 #### cache
 ```go 
@@ -37,7 +31,6 @@
     |----run.sh
     |----singleflight\
     |    |----singleflight.go
-
 ```
 #### chatroom
 ```go 
@@ -60,32 +53,39 @@
     |    |----websocket.go
     |----template\
     |    |----home.html
-1.  实现对应的goroutine管理
-2.  前端的websocket js
-3.  单例广播模式
 ```
 #### crontab-task
 ```go 
 ----crontab-task\
+    |----crontab.exe
+    |----crontab.exe~
     |----crontab.go
+    |----start.bat
+    |----supervisord.conf
     |----task.json
-1.  实现进程启动， 进程重启， 进程定时重启，三种功能， 
-2.  调用的库    gopsutil  crontab v3
-3.task.json  配置文件   crontab.go 任务调度
+    |----vad.py
 ```
 #### design-pattern
 ```go 
 ----design-pattern\
+    |----adapter.go
+    |----bridge.go
+    |----command.go
     |----decorator.go
+    |----facade.go
+    |----factory.go
+    |----flywight.go
     |----interpret.go
     |----iteror.go
     |----mediaitor.go
+    |----memery.go
     |----observer.go
+    |----prototype.go
+    |----proxy.go
+    |----responsibility-chain.go
     |----singleleton.go
-1.观察者模式
-2.单例模式
-3.装饰器模式
-4.迭代器模式
+    |----stat.go
+    |----strategy.go
 ```
 #### file-downloader
 ```go 
@@ -93,9 +93,9 @@
     |----download.mp4
     |----gao.mp4
     |----index.html
+    |----main.exe
     |----prasevideo.go
     |----request.go
-
 ```
 #### file-watch
 ```go 
@@ -103,7 +103,6 @@
     |----config.yaml
     |----filewatch.go
     |----task.json
-
 ```
 #### flash-sale
 ```go 
@@ -114,7 +113,6 @@
     |----router.go
     |----service.go
     |----sqls.go
-
 ```
 #### ginoc
 ```go 
@@ -126,7 +124,6 @@
     |----main.go
     |----main2.go
     |----monitor.go
-
 ```
 #### go-mod-init
 ```go 
@@ -140,7 +137,6 @@
     |    |----runRouter.go
     |----test\
     |    |----test.go
-
 ```
 #### go-protobuf
 ```go 
@@ -150,7 +146,6 @@
     |----student.pb.go
     |----student.proto
     |----student_pb2.py
-
 ```
 #### go-webassemblely
 ```go 
@@ -160,7 +155,6 @@
     |----main.go
     |----server.go
     |----wasm_exec.js
-
 ```
 #### golang-features
 ```go 
@@ -176,6 +170,7 @@
     |----data_interface.pb.go
     |----deamon.go
     |----editdistance.go
+    |----generic.go
     |----generics_comparable.go
     |----generics_iterable.go
     |----generics_restraint.go
@@ -184,10 +179,6 @@
     |----service.go
     |----signal.go
     |----反射基础.go
-1. 并发使用 map 
-2. goroutine 的泄漏
-3. 负载均衡算法的简单实现
-4. 通过反射调用函数
 ```
 #### goroutine-pool
 ```go 
@@ -196,27 +187,40 @@
     |----ants_test.go
     |----pool.go
     |----worker.go
-
 ```
 #### grpcserver
 ```go 
 ----grpcserver\
-    |----client\
-    |    |----grpcclient.go
+    |    |----httpRequests\
+    |    |    |----2021-12-13T143002.OK.json
+    |    |    |----http-requests-log.http
+    |----grpcclient.go
+    |----grpcserver.go
+    |----main_test.go
     |----pb\
     |    |----simple.pb.go
-    |    |----simple.proto
     |    |----simple_grpc.pb.go
-    |----server\
-    |    |----grpcserver.go
-
+    |----simple.proto
 ```
 #### httpserver
 ```go 
 ----httpserver\
     |----client.go
     |----server.go
-
+```
+#### interview-question
+```go 
+----interview-question\
+    |----01_underlying_type.go
+    |----02_type_assertions.go
+    |----03_recover_stack_overflow.go
+    |----04_pointer_and_value_receiver.go
+    |----05_initialization_order.go
+    |----06_for_loop_varialbe.go
+    |----07_concurrent_map_writes.go
+    |----08_gomaxprocs.go
+    |----09_interface_pair.go
+    |----10_value_settablility.go
 ```
 #### kafka
 ```go 
@@ -225,14 +229,12 @@
     |----kafkademo
     |----my.log
     |----test.ini
-
 ```
 #### lock-free
 ```go 
 ----lock-free\
     |----esQueue.go
     |----lockfree.go
-
 ```
 #### min-component
 ```go 
@@ -247,6 +249,7 @@
     |----ioreader.go
     |----lrucache.go
     |----mmap.go
+    |----panic_stackoverflow.go
     |----pictureserver.go
     |----propressfile.go
     |----receive_signal.go
@@ -259,7 +262,6 @@
     |----sync-cond.go
     |----tokenlimit.go
     |----xrate.go
-
 ```
 #### nets
 ```go 
@@ -267,7 +269,6 @@
     |----dial.go
     |----nets_test.go
     |----socket.go
-
 ```
 #### orm
 ```go 
@@ -277,6 +278,7 @@
     |    |----dialect.go
     |    |----sqlite3.go
     |----gee.db
+    |----hook_test.go
     |----log\
     |    |----log.go
     |----orm.go
@@ -288,18 +290,17 @@
     |    |----schema.go
     |    |----schema_test.go
     |----session\
+    |    |----hook.go
     |    |----raw.go
     |    |----record.go
     |    |----table.go
     |----table_test.go
-
 ```
 #### painkiller
 ```go 
 ----painkiller\
     |----painkiller.go
     |----pill_string.go
-
 ```
 #### prase-config
 ```go 
@@ -309,7 +310,12 @@
     |----config.json
     |----readfile.go
     |----structure.go
-
+```
+#### redirect-file
+```go 
+----redirect-file\
+    |----test.go
+    |----test.py
 ```
 #### redis
 ```go 
@@ -317,33 +323,34 @@
     |----compent\
     |    |----redis.go
     |    |----redis_test.go
-    |----httpget.go
     |----index.html
     |----main.go
-
 ```
 #### refelect-struct
 ```go 
 ----refelect-struct\
     |----reflectstruct.go
     |----reflectstruct_test.go
-
 ```
 #### rpcserver
 ```go 
 ----rpcserver\
     |----client.go
     |----server.go
-
 ```
-#### shm
+#### share-memory
 ```go 
-----shm\
+----share-memory\
     |----linux\
     |    |----shm_linux.go
     |----windows\
     |    |----shm_windows.go
-
+```
+#### single-filght
+```go 
+----single-filght\
+    |----singlefilght.go
+    |----singlefilght_test.go
 ```
 #### sqlcon
 ```go 
@@ -352,7 +359,13 @@
     |----mysqlconn.go
     |----readcommand.go
     |----sqlorm.go
-
+```
+#### sync-pool
+```go 
+----sync-pool\
+    |----newpool.go
+    |----pool_test.go
+    |----ready_test.go
 ```
 #### tcpserver
 ```go 
@@ -360,11 +373,6 @@
     |----client.go
     |----server.go
     |----utils.go
-
-```
-#### tree.txt
-```go 
-
 ```
 #### udpserver
 ```go 
@@ -372,7 +380,6 @@
     |----client.go
     |----pyau.ipynb
     |----server.go
-
 ```
 #### web
 ```go 
@@ -386,7 +393,6 @@
     |----trie.go
     |----web2_test.go
     |----web_test.go
-
 ```
 #### websocketserver
 ```go 
@@ -396,5 +402,4 @@
     |----new.html
     |----nhooyr_client.go
     |----nhooyr_server.go
-
 ```
