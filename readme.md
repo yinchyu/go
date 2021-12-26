@@ -10,8 +10,8 @@
 #### auth-code
 ```go 
 ----auth-code\
+    |    |----config.yaml
     |----code_test.go
-    |----config.yaml
     |----email.go
     |----mobile.go
     |----redis.go
