@@ -11,6 +11,8 @@
 ```go 
 ----auth-code\
     |----code_test.go
+    |----config.yaml
+    |----email.go
     |----redis.go
 ```
 #### cache
