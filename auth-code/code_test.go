@@ -30,8 +30,8 @@ func TestGetCode(t *testing.T) {
 
 func TestSendEmail(t *testing.T) {
 	defer ClostClient()
-	code, err := GetCode("1234")
 	email := "1192867487@qq.com"
+	code, err := GetCode(email)
 	if err == nil {
 		if VerifyEmailFormat(email) {
 			ok := SendEmail(email, code)
@@ -41,4 +41,18 @@ func TestSendEmail(t *testing.T) {
 		fmt.Println("发送的太过频繁")
 	}
 
+}
+
+func TestSend_Ms(t *testing.T) {
+	defer ClostClient()
+	mobile := "18898186026"
+	code, err := GetCode(mobile)
+	if err == nil {
+		if VerifyTelephoneFormat(mobile) {
+			text := fmt.Sprintf("您的验证码是：%s。请不要把验证码泄露给其他人。", code)
+			Send_Ms(text, mobile)
+		}
+	} else {
+		fmt.Println("发送的太过频繁")
+	}
 }
