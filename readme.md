@@ -347,6 +347,12 @@
     |----client.go
     |----server.go
 ```
+#### shadow-method
+```go 
+----shadow-method\
+    |----shadow.go
+    |----shadow.py
+```
 #### share-memory
 ```go 
 ----share-memory\
