@@ -265,6 +265,7 @@
     |----rename.go
     |----scrapy.go
     |----slicegrow.go
+    |----snowflake.go
     |----stopgoroutine.go
     |----stringbuilder.go
     |----swapalpha.go
