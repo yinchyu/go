@@ -270,6 +270,7 @@
     |----stringbuilder.go
     |----swapalpha.go
     |----sync-cond.go
+    |----teetrantlock.go
     |----tokenlimit.go
     |----xrate.go
 ```
