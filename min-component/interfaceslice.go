@@ -20,6 +20,12 @@ func Coding(gs []Gopher) {
 	}
 }
 
+func Coding2[T Gopher](gs []T) {
+	for _, g := range gs {
+		g.WriteGoCode()
+	}
+}
+
 func main() {
 	p := []person{
 		{name: "小菜刀1号"},
