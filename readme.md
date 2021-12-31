@@ -248,6 +248,8 @@
 #### min-component
 ```go 
 ----min-component\
+    |----atomic.go
+    |----callon.go
     |----channelchain.go
     |----concurrentmap.go
     |----flagprase.go
@@ -263,6 +265,7 @@
     |----propressfile.go
     |----receive_signal.go
     |----rename.go
+    |----rewrite.go
     |----scrapy.go
     |----slicegrow.go
     |----snowflake.go
