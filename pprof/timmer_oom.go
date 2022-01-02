@@ -10,7 +10,8 @@ import (
 /**
 time.After oom 验证demo
 */
-func main() {
+
+func calltimmer() {
 	ch := make(chan string, 100)
 
 	go func() {
