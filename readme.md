@@ -319,7 +319,16 @@
 #### pprof
 ```go 
 ----pprof\
+    |----cpu
+    |----cpu.prof
+    |----data.go
+    |----d_test.go
+    |----mem.prof
+    |----pprof.test.exe
+    |----profile
+    |----runtimepprof.go
     |----timmer_oom.go
+    |----trace.out
 ```
 #### prase-config
 ```go 
