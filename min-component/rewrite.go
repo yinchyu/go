@@ -5,7 +5,7 @@ import (
 	"os"
 	"path"
 )
-
+// 自重写程序，这个是实现程序自举的重要的一步
 func main() {
 	fmt.Printf("%s%c%s%c\n", q, 0x60, q, 0x60)
 	fmt.Printf("%c%c\n", 0x60, 0x60)
