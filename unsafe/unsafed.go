@@ -60,7 +60,7 @@ func func_example() {
 	var p *int32   // 8 32 + 16 = 48 + 1 = 49 + 7
 	var p2 []int32 //8
 	var p3 int32
-
+	//string 是8,一个slice 是24
 	fmt.Println(unsafe.Alignof(b))
 	fmt.Println(unsafe.Alignof(i8))
 	fmt.Println(unsafe.Alignof(i16))
@@ -86,13 +86,13 @@ func example_one() {
 
 func stringToByte(s string) []byte {
 	header := (*reflect.StringHeader)(unsafe.Pointer(&s))
-
 	newHeader := reflect.SliceHeader{
 		Data: header.Data,
 		Len:  header.Len,
 		Cap:  header.Len,
 	}
-
+	// ()() 两个括号少不了
+	// header 转换成为unsafe.pointer ，然后进行强制类型转换
 	return *(*[]byte)(unsafe.Pointer(&newHeader))
 }
 
@@ -110,6 +110,20 @@ func bytesToString(b []byte) string {
 func lbytesToString(b []byte) string {
 	return *(*string)(unsafe.Pointer(&b))
 }
+
+//8
+//4
+//string size is  16
+//u1 size is  56
+//u2 size is  48
+//u3 size is  56
+//1
+//1
+//2
+//8
+//4
+//16
+//24
 
 type User1 struct {
 	A int32
