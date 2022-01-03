@@ -6,7 +6,40 @@ import (
 	"unsafe"
 )
 
-func main() {
+type User1 struct {
+	A int32
+	B []int32
+	C string
+	D bool
+}
+
+type User2 struct {
+	B []int32
+	A int32
+	D bool
+	C string
+}
+
+type User3 struct {
+	D bool
+	B []int32
+	A int32
+	C string
+}
+
+// struct{}放到后边容易占用空间
+type test1 struct {
+	a int32
+	b struct{}
+}
+
+// 放到前边不占用空间
+type test2 struct {
+	a struct{}
+	b int32
+}
+
+func testfunc() {
 
 	fmt.Println(unsafe.Sizeof(test1{})) // 8
 	fmt.Println(unsafe.Sizeof(test2{})) // 4
@@ -18,6 +51,9 @@ func main() {
 	fmt.Println("u2 size is ", unsafe.Sizeof(u2))
 	fmt.Println("u3 size is ", unsafe.Sizeof(u3))
 	func_example()
+}
+func main() {
+	CopyField()
 }
 
 type User struct {
@@ -98,7 +134,6 @@ func stringToByte(s string) []byte {
 
 func bytesToString(b []byte) string {
 	header := (*reflect.SliceHeader)(unsafe.Pointer(&b))
-
 	newHeader := reflect.StringHeader{
 		Data: header.Data,
 		Len:  header.Len,
@@ -111,49 +146,16 @@ func lbytesToString(b []byte) string {
 	return *(*string)(unsafe.Pointer(&b))
 }
 
-//8
-//4
-//string size is  16
-//u1 size is  56
-//u2 size is  48
-//u3 size is  56
-//1
-//1
-//2
-//8
-//4
-//16
-//24
-
-type User1 struct {
-	A int32
-	B []int32
-	C string
-	D bool
+type My struct {
+	a string
+	b int
 }
 
-type User2 struct {
-	B []int32
-	A int32
-	D bool
-	C string
-}
-
-type User3 struct {
-	D bool
-	B []int32
-	A int32
-	C string
-}
-
-// struct{}放到后边容易占用空间
-type test1 struct {
-	a int32
-	b struct{}
-}
-
-// 放到前边不占用空间
-type test2 struct {
-	a struct{}
-	b int32
+// 修改一个对应的结构体的值通过指针进行修改
+func CopyField() {
+	var w *My = new(My)
+	fmt.Println(w.a, w.b)
+	baddr := unsafe.Pointer(uintptr(unsafe.Pointer(w)) + unsafe.Offsetof(w.b))
+	*(*int)(baddr) = 10
+	fmt.Println(w.a, w.b)
 }
