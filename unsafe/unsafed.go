@@ -54,6 +54,29 @@ func testfunc() {
 }
 func main() {
 	CopyField()
+	type Human struct {
+		sex  bool
+		age  uint8
+		min  int
+		name string
+	}
+
+	h := Human{
+		true,
+		30,
+		1,
+		"hello",
+	}
+	i := unsafe.Sizeof(h)
+	j := unsafe.Alignof(h.age)
+	k := unsafe.Offsetof(h.min)
+	m := unsafe.Offsetof(h.name)
+	fmt.Println(i, j, k, m)
+	fmt.Printf("%p\n", &h)
+	var p unsafe.Pointer
+	p = unsafe.Pointer(&h)
+	fmt.Println(p)
+
 }
 
 type User struct {
