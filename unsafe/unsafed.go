@@ -143,6 +143,7 @@ func bytesToString(b []byte) string {
 }
 
 func lbytesToString(b []byte) string {
+
 	return *(*string)(unsafe.Pointer(&b))
 }
 
