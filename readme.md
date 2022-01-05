@@ -7,6 +7,11 @@
     |----maxlength_word.go
     |----trietree.go
 ```
+#### assembly
+```go 
+----assembly\
+    |----main.go
+```
 #### auth-code
 ```go 
 ----auth-code\
@@ -122,6 +127,10 @@
     |----router.go
     |----service.go
     |----sqls.go
+```
+#### generic
+```go 
+----generic\
 ```
 #### ginoc
 ```go 
