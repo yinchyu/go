@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"errors"
+)
 
 type My string
 
@@ -24,6 +27,6 @@ func (c Comedyerror) Error() string {
 }
 func recursion2() {
 	var err error
-	err = Comedyerror("werere")
+	err = errors.New("werere")
 	fmt.Println(err)
 }

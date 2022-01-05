@@ -2,6 +2,9 @@ package main
 
 import (
 	"fmt"
+	"io"
+	"log"
+	"net/http"
 	"reflect"
 	"unsafe"
 )
@@ -52,7 +55,7 @@ func testfunc() {
 	fmt.Println("u3 size is ", unsafe.Sizeof(u3))
 	func_example()
 }
-func main() {
+func func1() {
 	CopyField()
 	type Human struct {
 		sex  bool
@@ -156,6 +159,7 @@ func stringToByte(s string) []byte {
 }
 
 func bytesToString(b []byte) string {
+	// 转换成通用指针，底层的内存布局是相同的， 就可以进行转换
 	header := (*reflect.SliceHeader)(unsafe.Pointer(&b))
 	newHeader := reflect.StringHeader{
 		Data: header.Data,
@@ -182,4 +186,52 @@ func CopyField() {
 	baddr := unsafe.Pointer(uintptr(unsafe.Pointer(w)) + unsafe.Offsetof(w.b))
 	*(*int)(baddr) = 10
 	fmt.Println(w.a, w.b)
+}
+func ReadBody() {
+	response, err := http.Get("https://go.dev/")
+
+	if err != nil {
+		log.Println(err)
+		return
+	}
+	readAll, err := io.ReadAll(response.Body)
+	if err != nil {
+		return
+	}
+	fmt.Println(bytesToString(readAll))
+	defer response.Body.Close()
+}
+
+func AddPointer() {
+	var a int64
+	var b float64
+	b = 12.23
+	a = *(*int64)(unsafe.Pointer(&b))
+	fmt.Println(a)
+}
+func ChangeStructfield() {
+	type user struct {
+		name    string
+		age     int
+		company string
+	}
+	u := new(user)  // A
+	fmt.Println(*u) // { 0}
+
+	uName := (*string)(unsafe.Pointer(u)) // B
+	*uName = "Jemmy"
+	fmt.Println(*u) // {Jemmy 0}
+
+	uAge := (*int)(unsafe.Pointer(uintptr(unsafe.Pointer(u)) + unsafe.Offsetof(u.age))) // C
+	*uAge = 23
+	fmt.Println(*u) // {Jemmy 23}
+
+	uCompany := (*string)(unsafe.Pointer(uintptr(unsafe.Pointer(u)) + unsafe.Offsetof(u.company))) // D
+	*uCompany = "吹牛逼技术有限公司"
+	fmt.Println(*u) // {Jemmy 23 吹牛逼技术有限公司}
+}
+
+func main() {
+	AddPointer()
+	ChangeStructfield()
 }
