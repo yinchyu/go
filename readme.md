@@ -10,7 +10,12 @@
 #### assembly
 ```go 
 ----assembly\
-    |----main.go
+    |----goid.s
+    |----go_tls.h
+    |----main.exe
+    |----math.go
+    |----math.s
+    |----sum.s
 ```
 #### auth-code
 ```go 
