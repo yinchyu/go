@@ -68,8 +68,6 @@ func Goid() {
 	}()
 	wg.Wait()
 }
-
 func main() {
-	println(sum([]int64{1, 2, 3, 4, 5}))
 
 }

@@ -32,7 +32,7 @@ func middle2(c *gin.Context) {
 	c.Next()
 	fmt.Println("在方法后调用")
 }
-func main() {
+func demo1() {
 	getfunc := func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"message": "pong",
@@ -46,7 +46,7 @@ func main() {
 		v.RegisterValidation("Require", Require)
 	}
 	v1.GET("/:id", func(c *gin.Context) {
-		// localhost/gets/1234?name=ycy&password=1234, 传递的参数可以被解析
+		// localhost/gets/1234?name=ycy&password=1234, 传递的参数可以被解析 query 解析
 		// 占位符传递参数
 		id := c.Param("id")
 		fmt.Println(id)
