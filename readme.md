@@ -144,9 +144,9 @@
     |    |    |----http-client.cookies
     |    |    |----http-requests-log.http
     |----1631783255556186200_ecb45559bda357aea824fde70cdde995.jpg
-    |----main.go
-    |----main2.go
+    |----middle.go
     |----monitor.go
+    |----server.go
 ```
 #### go-mod-init
 ```go 

@@ -85,3 +85,40 @@ func demo1() {
 	//接口路由，如果url不是/debug/vars，则用metricBeat去获取会出问题
 	router.Run(":80")
 }
+
+//  通过header请求处理数据
+func ginHeader() {
+	engine := gin.Default()
+	groupv1 := engine.Group("v1")
+	groupv1.HEAD("/header", func(c *gin.Context) {
+		fmt.Println("enter header")
+
+		getval := c.GetHeader("Content-type")
+		fmt.Println(getval)
+
+	})
+	engine.Run(":8090")
+}
+
+// 通过http的请求来处理数据， gin 将一个不同的
+func httpHeader(){
+	hand := func(w http.ResponseWriter, r *http.Request) {
+		fmt.Println("enter")
+		switch r.Method {
+		case http.MethodHead:
+			getval := r.Header.Get("Content-Type")
+			fmt.Println(getval)
+		case http.MethodGet:
+			data := []byte("hello guest")
+			w.Write(data)
+			fmt.Println(string(data))
+		case http.MethodPost:
+			// 对应的from 格式必须先进行 parsefrom 后才能在get 中得到数据
+			fmt.Println(r.ParseForm())
+			fmt.Println(r.Form.Get("name"))
+
+		}
+	}
+	http.HandleFunc("/v1/header", hand)
+	http.ListenAndServe(":8090", nil)
+}

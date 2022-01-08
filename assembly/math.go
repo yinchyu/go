@@ -2,7 +2,10 @@ package main
 
 import (
 	"bytes"
+	"crypto/md5"
+	_ "embed"
 	"fmt"
+	"net"
 	"runtime"
 	"strconv"
 	"strings"
@@ -68,6 +71,63 @@ func Goid() {
 	}()
 	wg.Wait()
 }
-func main() {
 
+func InternalIp() []string {
+	interfaces, err := net.Interfaces()
+	if err != nil {
+		return nil
+	}
+
+	ips := make([]string, 0, len(interfaces))
+	for _, inf := range interfaces {
+		// 可以直接看到一个接口是否启动了
+		if inf.Flags&net.FlagUp != net.FlagUp ||
+			inf.Flags&net.FlagLoopback == net.FlagLoopback {
+			continue
+		}
+
+		addr, err := inf.Addrs()
+		if err != nil {
+			continue
+		}
+
+		for _, a := range addr {
+			if ipNet, ok := a.(*net.IPNet); ok &&
+				!ipNet.IP.IsLoopback() && ipNet.IP.To4() != nil {
+				ips = append(ips, ipNet.IP.String())
+			}
+		}
+	}
+	return ips
+}
+
+func IP() {
+	interfaces, err := net.Interfaces()
+	if err != nil {
+		return
+	}
+	for i := range interfaces {
+		addrs, err := interfaces[i].Addrs()
+		if err != nil {
+			return
+		}
+		for j := range addrs {
+			//  使用接口重新断言回去
+			if ip, ok := addrs[j].(*net.IPNet); ok {
+				fmt.Println(ip)
+			}
+
+		}
+	}
+}
+
+//go:embed sum.s
+var data []byte
+
+func md5s() {
+	hash := md5.New()
+	hash.Write(data)
+	fmt.Printf("%x\n", hash.Sum(nil))
+	hash.Reset()
+	fmt.Printf("%x\n", hash.Sum(nil))
 }

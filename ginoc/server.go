@@ -8,6 +8,8 @@ import (
 	"log"
 	"net/http"
 	"reflect"
+	"strconv"
+	"strings"
 	"time"
 )
 
@@ -63,7 +65,7 @@ func getBookable(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 	}
 }
-func main() {
+func Start() {
 	router := gin.Default()
 
 	router.Use()
@@ -170,11 +172,24 @@ func main() {
 
 	router.GET("/testing", startPage)
 
-	if v, ok := binding.Validator.Engine().(*validator.Validate); ok {
-		v.RegisterValidation("bookabledate", bookableDate)
-	}
+	//if v, ok := binding.Validator.Engine().(*validator.Validate); ok {
+	//	v.RegisterValidation("bookabledate", bookableDate)
+	//}
 
 	router.GET("/bookable", getBookable)
 
 	router.Run(":8001")
+}
+
+func getMinVer(v string) (uint64, error) {
+	first := strings.IndexByte(v, '.')
+	last := strings.LastIndexByte(v, '.')
+	if first == last {
+		return strconv.ParseUint(v[first+1:], 10, 64)
+	}
+	return strconv.ParseUint(v[first+1:last], 10, 64)
+}
+func main() {
+	fmt.Println(getMinVer("1.12"))
+
 }
