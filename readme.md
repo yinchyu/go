@@ -73,6 +73,14 @@
     |----template\
     |    |----home.html
 ```
+#### copy-unexport-filed
+```go 
+----copy-unexport-filed\
+    |----crypto\
+    |    |----crypto.go
+    |----pkg\
+    |    |----pkg.go
+```
 #### crontab-task
 ```go 
 ----crontab-task\
@@ -262,6 +270,7 @@
 #### min-component
 ```go 
 ----min-component\
+    |----assert.go
     |----atomic.go
     |----channelchain.go
     |----concurrentmap.go
