@@ -1,0 +1,29 @@
+`{{range $i,$v := .urls}}
+url: http://{{$v}}
+{{- end}}
+
+server:
+    {{.exec}} -s {{.addr}} -p {{.dir}} -t {{.timeout}}{{if .pass}} -e {{.pass}}{{end}}
+registry:
+    {{.exec}} -s {{.addr}} -reg
+cli get:
+    {{.exec}} cli -c{{if .pass}} -e {{.pass}}{{end}} http://{{.addr}}/tmp.txt
+cli post:
+    {{.exec}} cli -c{{if .pass}} -e {{.pass}}{{end}} -d @C:\tmp.txt http://{{.addr}}/tmp.txt
+
+Get File:
+    wget -c --content-disposition http://{{.addr}}/tmp.txt
+    curl -C - -OJ http://{{.addr}}/tmp.txt
+
+Post File:
+    wget -qO - --post-file=C:\tmp.txt http://{{.addr}}/tmp.txt
+    curl --data-binary @C:\tmp.txt http://{{.addr}}/tmp.txt
+    curl -F "file=@C:\tmp.txt" http://{{.addr}}/
+
+Get Offset:
+    curl -H "Content-Type:application/janbar" http://{{.addr}}/tmp.txt
+    wget -qO - --header "Content-Type:application/janbar" http://{{.addr}}/tmp.txt
+
+Put File:
+    curl -C - -T C:\tmp.txt http://{{.addr}}/tmp.txt
+`
