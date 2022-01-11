@@ -8,6 +8,7 @@ package errgroup
 
 import (
 	"context"
+	"fmt"
 	"sync"
 )
 
@@ -36,8 +37,13 @@ func WithContext(ctx context.Context) (*Group, context.Context) {
 
 // Wait blocks until all function calls from the Go method have returned, then
 // returns the first non-nil error (if any) from them.
+// 可能有很多的错误，就会返回第一个错误，通过   sync.once 来进行保证，只会执行一次， 然后如果没有错误的话，cancel
+//也会执行
 func (g *Group) Wait() error {
 	g.wg.Wait()
+	// 保证没有错误的时候进行取消
+
+	// cancel 函数一定会被执行，有错误了执行的时间比较早，没有错误执行的时间比较晚
 	if g.cancel != nil {
 		g.cancel()
 	}
@@ -55,9 +61,11 @@ func (g *Group) Go(f func() error) {
 		defer g.wg.Done()
 
 		if err := f(); err != nil {
+			fmt.Println("****", err)
 			g.errOnce.Do(func() {
 				g.err = err
 				if g.cancel != nil {
+
 					g.cancel()
 				}
 			})

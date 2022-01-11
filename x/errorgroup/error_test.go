@@ -27,7 +27,7 @@ func fakeSearch(kind string) Search {
 // JustErrors illustrates the use of a Group in place of a sync.WaitGroup to
 // simplify goroutine counting and error handling. This example is derived from
 // the sync.WaitGroup example at https://golang.org/pkg/sync/#example_WaitGroup.
-func ExampleGroup_justErrors() {
+func TestGroup_Go2(t *testing.T) {
 	g := new(Group)
 	var urls = []string{
 		"http://www.golang.org/",
@@ -37,6 +37,7 @@ func ExampleGroup_justErrors() {
 	for _, url := range urls {
 		// Launch a goroutine to fetch the URL.
 		url := url // https://golang.org/doc/faq#closures_and_goroutines
+		// 会等待所有的执行完成才会退出,通过这个退出操作
 		g.Go(func() error {
 			// Fetch the URL.
 			resp, err := http.Get(url)
@@ -49,6 +50,8 @@ func ExampleGroup_justErrors() {
 	// Wait for all HTTP fetches to complete.
 	if err := g.Wait(); err == nil {
 		fmt.Println("Successfully fetched all URLs.")
+	} else {
+		fmt.Println("err:", err)
 	}
 }
 
@@ -84,6 +87,7 @@ func ExampleGroup_parallel() {
 		return
 	}
 	for _, result := range results {
+		fmt.Println("print result ")
 		fmt.Println(result)
 	}
 
@@ -167,4 +171,22 @@ func TestWithContext(t *testing.T) {
 				g, tc.errs)
 		}
 	}
+}
+
+func TestGroup_Go(t *testing.T) {
+	counter := 0
+	g := new(Group)
+	do := func() error {
+		a := counter
+		return fmt.Errorf("%s ,%d", "funcation", a)
+	}
+	for i := 0; i < 4; i++ {
+		g.Go(do)
+		counter++
+	}
+	err := g.Wait()
+	if err != nil {
+		fmt.Println(err)
+	}
+
 }

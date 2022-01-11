@@ -401,6 +401,10 @@
     |----client.go
     |----server.go
 ```
+#### semaphore
+```go 
+----semaphore\
+```
 #### shadow-method
 ```go 
 ----shadow-method\
@@ -493,4 +497,14 @@
     |----new.html
     |----nhooyr_client.go
     |----nhooyr_server.go
+```
+#### x
+```go 
+----x\
+    |----errorgroup\
+    |    |----errorgroup.go
+    |    |----error_test.go
+    |----semaphore\
+    |    |----samaphore.go
+    |    |----samaphore_test.go
 ```

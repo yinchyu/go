@@ -46,6 +46,8 @@ func TestNewWeighted(t *testing.T) {
 
 // collatzSteps computes the number of steps to reach 1 under the Collatz
 // conjecture. (See https://en.wikipedia.org/wiki/Collatz_conjecture.)
+
+// 冰雹猜想 通过一个规则进行计算所有的结果都会变成1
 func collatzSteps(n int) (steps int) {
 	if n <= 0 {
 		panic("nonpositive input")
