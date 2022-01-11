@@ -233,6 +233,12 @@
     |    |----simple_grpc.pb.go
     |----simple.proto
 ```
+#### httprouter
+```go 
+----httprouter\
+    |----path.go
+    |----path_test.go
+```
 #### httpserver
 ```go 
 ----httpserver\
