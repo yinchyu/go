@@ -7,6 +7,7 @@ import (
 // Handle is a function that can be registered to a route to handle HTTP
 // requests. Like http.HandlerFunc, but has a third parameter for the values of
 // wildcards (variables).
+// map 存放的应该是参数，参数存放的位置应该在对应的  map 的位置
 type Handle func(http.ResponseWriter, *http.Request, map[string]string)
 
 // NotFound is the default HTTP handler func for routes that can't be matched
