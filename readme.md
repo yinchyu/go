@@ -296,6 +296,7 @@
     |----goroutineleak.go
     |----interfaceslice.go
     |----ioreader.go
+    |----json.go
     |----json_precision.go
     |----lrucache.go
     |----mmap.go
