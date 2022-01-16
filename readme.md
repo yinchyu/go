@@ -450,7 +450,11 @@
 ```go 
 ----tcpserver\
     |----client.go
+    |----echo.go
+    |----error.go
+    |----ping.go
     |----server.go
+    |----sock5.go
     |----utils.go
 ```
 #### udpserver
