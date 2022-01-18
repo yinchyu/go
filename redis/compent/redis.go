@@ -18,10 +18,12 @@ var (
 )
 
 func Setkey(key string, value int) {
+	// 设置一个key 一直不过期
 	client.Set(key, value, -1)
 }
 
 func SetOp(number string) (string, error) {
+	// hash get all 获取的是一个keymap
 	stringmap := client.HGetAll(number)
 	usedtimes := stringmap.Val()["count"]
 	code := stringmap.Val()["code"]
