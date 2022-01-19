@@ -6,7 +6,7 @@ import (
 	"github.com/go-redis/redis"
 	"io"
 	"log"
-	"main/compent"
+	compent "main/redlock"
 	"net/http"
 	"sync"
 	"sync/atomic"

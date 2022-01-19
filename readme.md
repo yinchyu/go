@@ -350,6 +350,7 @@
     |    |----raw.go
     |    |----record.go
     |    |----table.go
+    |----sqlite3\
     |----table_test.go
 ```
 #### painkiller
@@ -392,7 +393,6 @@
     |----compent\
     |    |----redis.go
     |    |----redis_test.go
-    |----index.html
     |----main.go
 ```
 #### refelect-struct

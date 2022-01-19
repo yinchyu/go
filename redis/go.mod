@@ -1,10 +1,10 @@
-module main
+module main/v5
 
 go 1.17
 
 require (
+	github.com/gin-gonic/gin v1.7.7
 	github.com/go-redis/redis v6.15.9+incompatible
-	"github.com/gin-gonic/gin" v1.7.7
 )
 
 require (
@@ -27,3 +27,11 @@ require (
 	google.golang.org/protobuf v1.26.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
+
+// 难道只能撤回v0 和v1 的版本吗， 奥原来是自己的main 包没有整明白，没有加上对应的版本信息,不对   retract 就是只能撤回同一个版本的对应的数据
+retract (
+v5.3.3
+v5.5.1
+v3.4.6
+)
+
