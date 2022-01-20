@@ -390,10 +390,10 @@
 #### redis
 ```go 
 ----redis\
-    |----compent\
+    |----main.go
+    |----redlock\
     |    |----redis.go
     |    |----redis_test.go
-    |----main.go
 ```
 #### refelect-struct
 ```go 
