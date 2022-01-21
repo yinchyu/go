@@ -52,6 +52,9 @@ func (t *Trie) StartsWith(w string) bool {
 	}
 	return true
 }
+
+
+
 func addelement(slice []int, e int) []int {
 	panic("传递参数出现了错误")
 	//return append(slice,e)

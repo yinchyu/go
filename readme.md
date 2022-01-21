@@ -286,6 +286,7 @@
 ----min-component\
     |----assert.go
     |----atomic.go
+    |----bigend.go
     |----channelchain.go
     |----concurrentmap.go
     |----echo.go

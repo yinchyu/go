@@ -25,8 +25,9 @@ type node struct {
 	wildChild bool
 	// 三种具体的类型
 	nType nodeType
-
-	indices  []byte
+	// 存储公共前缀
+	indices []byte
+	// 存储孩子节点
 	children []*node
 	handle   map[string]Handle
 
@@ -55,6 +56,7 @@ func (n *node) incrementChildPrio(i int) int {
 
 // addRoute adds a node with the given handle to the path.
 // Not concurrency-safe!
+// get   /hello/login  function    不同的方法有不同的树redix
 func (n *node) addRoute(method, path string, handle Handle) {
 	n.priority++
 	// non-empty tree
@@ -65,6 +67,8 @@ func (n *node) addRoute(method, path string, handle Handle) {
 			// This also implies that the commom prefix contains no ':' or '*'
 			// since the existing key can't contain this chars.
 			i := 0
+			//n.path 是需要插入的path 的父节点
+			//寻找最长公共前缀
 			for j := min(len(path), len(n.path)); i < j && path[i] == n.path[i]; i++ {
 			}
 
@@ -79,12 +83,14 @@ func (n *node) addRoute(method, path string, handle Handle) {
 					priority:  n.priority - 1,
 				}}
 				n.indices = []byte{n.path[i]}
+				//n的路径变成了公共路径 /hi  /contact   公共路径/   hi 退化成为子节点
 				n.path = path[:i]
 				n.handle = nil
 				n.wildChild = false
 			}
 
 			// Make new node a child of this node
+			// 制造新的节点的同时会看看有没有新的共同的路径
 			if i < len(path) {
 				path = path[i:]
 
@@ -113,15 +119,18 @@ func (n *node) addRoute(method, path string, handle Handle) {
 				}
 
 				// Check if a child with the next path byte exists
+				// 检查是否有一致的对应的子路径
 				for i, index := range n.indices {
 					if c == index {
 						i = n.incrementChildPrio(i)
+						// 有公共前缀就修改n 然后继续进入到第一步的步骤
 						n = n.children[i]
 						continue WALK
 					}
 				}
 
 				// Otherwise insert it
+				// 目前来说优先度和参数的问题还没有解决
 				if c != ':' && c != '*' {
 					n.indices = append(n.indices, c)
 					child := &node{}
@@ -245,6 +254,7 @@ func (n *node) insertChild(method, path string, handle Handle) {
 	}
 
 	// insert remaining path part and handle to the leaf
+	// 放入了一个节点
 	n.path = path[offset:]
 	n.handle = map[string]Handle{
 		method: handle,
