@@ -52,3 +52,7 @@ func TestTrie(t *testing.T) {
 		}
 	}
 }
+
+func TestRouter_GET(t *testing.T) {
+	test()
+}
