@@ -1,9 +1,11 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/go-redis/redis"
+	//"github.com/go-redis/redis"
+	"github.com/go-redis/redis/v8"
 	"io"
 	"log"
 	compent "main/redlock"
@@ -56,6 +58,14 @@ func Geter() {
 	fmt.Println("========", count)
 }
 
+type status uint32
+
+const (
+	sopen status = iota
+	closed
+	unkonwn
+)
+
 func main() {
 
 	// for i:=0;i<10;i++{
@@ -79,14 +89,19 @@ func main() {
 
 		go func() {
 			defer wg.Add(-1)
-			if client.SetNX("xiexi", "va", time.Second*10).Val() {
+			if client.SetNX(context.Background(), "xiexi", "va", time.Second*10).Val() {
 				total--
-				client.Del("xiexi")
-
+				client.Del(context.Background(), "xiexi")
 			}
 
 		}()
 	}
 	wg.Wait()
 	fmt.Println("现在的用时是:", time.Now().Sub(now), total)
+	//两个结构体的竟然完全不能通用,在不同的包中间， 相当于完全不同的包了，就是严格做了语义区分
+	newClient := redis.NewClient(&redis.Options{
+		Addr: "42.193.190.143:6388",
+		DB:   0,
+	})
+	fmt.Println(newClient)
 }

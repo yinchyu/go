@@ -1,13 +1,16 @@
-module main/v5
+module main
 
 go 1.17
 
 require (
 	github.com/gin-gonic/gin v1.7.7
 	github.com/go-redis/redis v6.15.9+incompatible
+	github.com/go-redis/redis/v8 v8.11.4
 )
 
 require (
+	github.com/cespare/xxhash/v2 v2.1.2 // indirect
+	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/go-playground/locales v0.13.0 // indirect
 	github.com/go-playground/universal-translator v0.17.0 // indirect
@@ -27,11 +30,3 @@ require (
 	google.golang.org/protobuf v1.26.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
-
-// 难道只能撤回v0 和v1 的版本吗， 奥原来是自己的main 包没有整明白，没有加上对应的版本信息,不对   retract 就是只能撤回同一个版本的对应的数据
-retract (
-v5.3.3
-v5.5.1
-v3.4.6
-)
-

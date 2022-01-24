@@ -287,6 +287,7 @@
 ```go 
 ----min-component\
     |----assert.go
+    |----atmoic.go
     |----atomic.go
     |----bigend.go
     |----channelchain.go
