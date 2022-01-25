@@ -17,7 +17,9 @@ type Handle func(http.ResponseWriter, *http.Request, map[string]string)
 func NotFound(w http.ResponseWriter, req *http.Request) {
 	if req.Method != "CONNECT" {
 		path := req.URL.Path
+		// 如果一个变量作用域在外部不适用， 就将赋值卸载if 操作中， if 结束后， 变量的作用域失效，变量被垃圾回收
 		if cp := CleanPath(path); cp != path && cp != req.Referer() {
+			// 连接操作 http.Redirect() 来重定向数据
 			http.Redirect(w, req, cp, http.StatusMovedPermanently)
 			return
 		}

@@ -8,6 +8,7 @@ func CleanPath(path string) string {
 	n := len(path)
 	r := 0
 	w := 1
+	// 使用非惰性加载，直接初始化一个新的路径，但是需要又内存分配
 	buf := make([]byte, n+1)
 	buf[0] = '/'
 	if path[0] == '/' {
