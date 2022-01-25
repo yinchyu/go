@@ -156,6 +156,16 @@
     |----monitor.go
     |----server.go
 ```
+#### ginv0.1
+```go 
+----ginv0.1\
+    |----auth.go
+    |----gin.go
+    |----gin_test.go
+    |----logger.go
+    |----recovery.go
+    |----validation.go
+```
 #### go-mod-init
 ```go 
 ----go-mod-init\
