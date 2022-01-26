@@ -197,6 +197,13 @@
     |----server.go
     |----wasm_exec.js
 ```
+#### gobreaker-example
+```go 
+----gobreaker-example\
+    |----gobreaker.go
+    |----gobreaker_test.go
+    |----http_breaker.go
+```
 #### golang-features
 ```go 
 ----golang-features\
