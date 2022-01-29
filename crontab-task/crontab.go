@@ -7,6 +7,7 @@ import (
 	"github.com/robfig/cron/v3"
 	"github.com/shirou/gopsutil/process"
 	"io/ioutil"
+	"log"
 	"os/exec"
 	"strconv"
 	"strings"
@@ -124,7 +125,7 @@ func (processd *task) Run() {
 var mux sync.Mutex
 var taskmap map[string]task
 
-func main() {
+func CallFuncation() {
 	// 每一个进程执行都传递了taskmap 的具体地址
 	taskmap = make(map[string]task)
 	alltast := readfile("./task.json")
@@ -144,4 +145,26 @@ func main() {
 		defer timmer.Stop()
 	}
 	CheckProcessAlive(&taskmap, alltast.Checktime)
+}
+
+type cronjob struct {
+	name string
+	age  string
+}
+
+func (c cronjob) Run() {
+	fmt.Println(c.name, c.age)
+}
+
+func main() {
+	timmer := cron.New()
+	//m每分钟执行一次
+	_, err := timmer.AddJob("* * * * *", &cronjob{name: "12", age: "24"})
+	if err != nil {
+		log.Println(err)
+	}
+	timmer.Start()
+	defer timmer.Stop()
+	for {
+	}
 }
