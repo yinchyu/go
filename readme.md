@@ -84,10 +84,7 @@
 #### crontab-task
 ```go 
 ----crontab-task\
-    |----crontab.exe
-    |----crontab.exe~
     |----crontab.go
-    |----start.bat
     |----supervisord.conf
     |----task.json
     |----vad.py
