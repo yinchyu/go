@@ -22,7 +22,7 @@ func main() {
 	writeAPI.Flush()
 	// get non-blocking write client
 	//writeAPI := client.WriteAPI("tentenct", "tentenct")
-
+	//需要增加时间来处理，点的信息需要时间和值
 	p := influxdb2.NewPoint("stat",
 		map[string]string{"unit": "temperature"},
 		map[string]interface{}{"avg": 24.5, "max": 45},
@@ -64,3 +64,5 @@ func main() {
 		fmt.Printf("query parsing error: %\n", result.Err().Error())
 	}
 }
+
+//13598297289
