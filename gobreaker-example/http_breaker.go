@@ -42,6 +42,16 @@ func Get(url string) ([]byte, error) {
 	// 只有连接成功然后顺利读到数据才算是成功
 	return body.([]byte), nil
 }
+func add[T ~int | ~float64](a, b T) T {
+	return a + b
+}
+
+func good() {
+	var x int
+	func() {
+		x = 2
+	}()
+}
 
 func main() {
 	body, err := Get("http://www.google.com/robots.txt")
