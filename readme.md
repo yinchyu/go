@@ -111,6 +111,11 @@
     |----stat.go
     |----strategy.go
 ```
+#### feature
+```go 
+----feature\
+    |----feature1.go
+```
 #### file-downloader
 ```go 
 ----file-downloader\
