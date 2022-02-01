@@ -114,7 +114,7 @@
 #### feature
 ```go 
 ----feature\
-    |----feature1.go
+    |----generic.go
 ```
 #### file-downloader
 ```go 
