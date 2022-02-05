@@ -1,9 +1,7 @@
 package main
 
 import (
-	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
 )
 
@@ -44,10 +42,9 @@ func Get(url string) ([]byte, error) {
 }
 
 func main() {
-	body, err := Get("http://www.google.com/robots.txt")
-	if err != nil {
-		log.Fatal(err)
-	}
+	//body, err := Get("http://www.google.com/robots.txt")
+	//if err != nil {
+	//	log.Fatal(err)
+	//}
 
-	fmt.Println(string(body))
 }
