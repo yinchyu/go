@@ -1,8 +1,11 @@
 package main
 
 import (
-	"io/ioutil"
+	"fmt"
+	"io"
+	"math/rand"
 	"net/http"
+	"time"
 )
 
 var cb *CircuitBreaker
@@ -27,7 +30,7 @@ func Get(url string) ([]byte, error) {
 		}
 
 		defer resp.Body.Close()
-		body, err := ioutil.ReadAll(resp.Body)
+		body, err := io.ReadAll(resp.Body)
 		if err != nil {
 			return nil, err
 		}
@@ -41,10 +44,24 @@ func Get(url string) ([]byte, error) {
 	return body.([]byte), nil
 }
 
+var seededRand *rand.Rand = rand.New(rand.NewSource(time.Now().UnixNano()))
+
+//给出了一个默认的字符串，然后通过默认的字符串位置来初始化随机字符串
+const charset = "abcdefghijklmnopqrstuvwxyz"
+
+func RandomString(length int) string {
+	b := make([]byte, length)
+	charsetLen := len(charset)
+	for i := range b {
+		b[i] = charset[seededRand.Intn(charsetLen)]
+	}
+	return string(b)
+}
 func main() {
 	//body, err := Get("http://www.google.com/robots.txt")
 	//if err != nil {
 	//	log.Fatal(err)
 	//}
 
+	fmt.Println(RandomString(10))
 }
