@@ -10,6 +10,7 @@ func FuzzReverse(f *testing.F) {
 	for _, tc := range testcases {
 		f.Add(tc) // Use f.Add to provide a seed corpus
 	}
+	// ff should be in the form func(*testing.T, ...interface{})
 	f.Fuzz(func(t *testing.T, orig string) {
 		rev, err1 := Reverse(orig)
 		if err1 != nil {

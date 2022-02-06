@@ -143,6 +143,16 @@
     |----service.go
     |----sqls.go
 ```
+#### fuzz
+```go 
+----fuzz\
+    |----main.go
+    |----reverse_test.go
+    |----testdata\
+    |    |----fuzz\
+    |    |    |----FuzzReverse\
+    |    |    |    |----7a3bf45382d42782fe27caafe5bb7c438d2c58f58f56c75d62a100e0b3f962aa
+```
 #### generic
 ```go 
 ----generic\
