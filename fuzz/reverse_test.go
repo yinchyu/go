@@ -8,6 +8,7 @@ import (
 func FuzzReverse(f *testing.F) {
 	testcases := []string{"Hello, world", " ", "!12345"}
 	for _, tc := range testcases {
+		// 每次添加的都是参数列表
 		f.Add(tc) // Use f.Add to provide a seed corpus
 	}
 	// ff should be in the form func(*testing.T, ...interface{})
