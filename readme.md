@@ -318,6 +318,11 @@
     |----esQueue.go
     |----lockfree.go
 ```
+#### map-reduce-filter
+```go 
+----map-reduce-filter\
+    |----advancefunc.go
+```
 #### min-component
 ```go 
 ----min-component\
