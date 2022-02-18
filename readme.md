@@ -322,6 +322,8 @@
 ```go 
 ----map-reduce-filter\
     |----advancefunc.go
+    |----advancefun_test.go
+    |----interface.go
 ```
 #### min-component
 ```go 
