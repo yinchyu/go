@@ -115,6 +115,7 @@
 ```go 
 ----feature\
     |----generic.go
+    |----omitempty.go
 ```
 #### file-downloader
 ```go 
