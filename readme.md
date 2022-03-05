@@ -114,7 +114,9 @@
 #### feature
 ```go 
 ----feature\
+    |----deleation.go
     |----generic.go
+    |----hardlink.go
     |----omitempty.go
 ```
 #### file-downloader
