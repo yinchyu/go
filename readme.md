@@ -136,6 +136,13 @@
     |----filewatch.go
     |----task.json
 ```
+#### filetype
+```go 
+----filetype\
+    |----filetype.go
+    |----filetype_test.go
+    |----test.html
+```
 #### flash-sale
 ```go 
 ----flash-sale\
