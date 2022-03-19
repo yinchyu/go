@@ -13,4 +13,5 @@ func main(){
 
 
 	fmt.Println(stringutil.Reverse("hello"))
+	 fmt.Println(stringutil.ToUpper("Hello"))
 }

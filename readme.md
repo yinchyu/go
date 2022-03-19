@@ -338,6 +338,8 @@
 #### min-component
 ```go 
 ----min-component\
+    |----.ipynb_checkpoints\
+    |    |----Untitled-checkpoint.ipynb
     |----assert.go
     |----atmoic.go
     |----atomic.go
@@ -350,6 +352,7 @@
     |----getbalancer.go
     |----getemial.go
     |----getfuncbyname.go
+    |----goexit.go
     |----goroutineleak.go
     |----interfaceslice.go
     |----ioreader.go
@@ -373,6 +376,7 @@
     |----sync-cond.go
     |----teetrantlock.go
     |----tokenlimit.go
+    |----Untitled.ipynb
     |----xrate.go
 ```
 #### nets
@@ -565,6 +569,14 @@
     |----new.html
     |----nhooyr_client.go
     |----nhooyr_server.go
+```
+#### workspace
+```go 
+----workspace\
+    |----go.work
+    |----hello\
+    |    |----hello.go
+    |----localcopy\
 ```
 #### x
 ```go 
