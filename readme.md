@@ -573,10 +573,56 @@
 #### workspace
 ```go 
 ----workspace\
+    |----example\
+    |    |----appengine-hello\
+    |    |    |----app.go
+    |    |    |----app.yaml
+    |    |    |----static\
+    |    |    |    |----favicon.ico
+    |    |    |    |----index.html
+    |    |    |    |----script.js
+    |    |    |    |----style.css
+    |    |----gotypes\
+    |    |    |----defsuses\
+    |    |    |    |----main.go
+    |    |    |----doc\
+    |    |    |    |----main.go
+    |    |    |----hello\
+    |    |    |    |----hello.go
+    |    |    |----hugeparam\
+    |    |    |    |----main.go
+    |    |    |----implements\
+    |    |    |    |----main.go
+    |    |    |----lookup\
+    |    |    |    |----lookup.go
+    |    |    |----Makefile
+    |    |    |----nilfunc\
+    |    |    |    |----main.go
+    |    |    |----pkginfo\
+    |    |    |    |----main.go
+    |    |    |----skeleton\
+    |    |    |    |----main.go
+    |    |    |----typeandvalue\
+    |    |    |    |----main.go
+    |    |    |----weave.go
+    |    |----hello\
+    |    |    |----hello.go
+    |    |----LICENSE
+    |    |----outyet\
+    |    |    |----containers.yaml
+    |    |    |----Dockerfile
+    |    |    |----main.go
+    |    |    |----main_test.go
+    |    |----stringutil\
+    |    |    |----reverse.go
+    |    |    |----reverse_test.go
+    |    |----template\
+    |    |    |----image.tmpl
+    |    |    |----index.tmpl
+    |    |    |----main.go
     |----go.work
     |----hello\
     |    |----hello.go
-    |----localcopy\
 ```
 #### x
 ```go 
