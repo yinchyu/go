@@ -117,6 +117,8 @@
     |----deleation.go
     |----generic.go
     |----hardlink.go
+    |----initsequence.go
+    |----interface_traps.go
     |----omitempty.go
 ```
 #### file-downloader
