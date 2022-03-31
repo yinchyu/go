@@ -168,6 +168,8 @@
 #### generic
 ```go 
 ----generic\
+    |----geericset.go
+    |----genericinfer.go
 ```
 #### ginoc
 ```go 
