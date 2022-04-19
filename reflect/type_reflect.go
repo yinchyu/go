@@ -5,9 +5,9 @@ import (
 	"reflect"
 )
 
-type T []interface{ m() }
+type x []interface{ m() }
 
-func (c T) m() {}
+func (c x) m() {}
 
 func interfacereflect() {
 	tp := reflect.TypeOf(new(any))
