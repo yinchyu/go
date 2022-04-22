@@ -1,4 +1,4 @@
-package main
+package feature
 
 import (
 	"fmt"
@@ -131,18 +131,7 @@ func f() {
 	runtime.Goexit()
 
 }
-func main() {
-	//entryvalue()
-	//serverlisten()
-	//go func() {
-	//	for {
-	//		time.Sleep(time.Second)
-	//		fmt.Println("hello")
-	//	}
-	//}()
-	////runtime.Goexit()
-	//panic(0)
-	//select {}
+func gosched() {
 
 	c := make(chan struct{})
 	go func() {

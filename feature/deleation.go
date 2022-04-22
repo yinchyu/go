@@ -1,4 +1,4 @@
-package main
+package feature
 
 import (
 	"errors"
@@ -105,31 +105,4 @@ func (set *IntSet) Delete(x int) {
 	} else {
 		set.undo.Add(nil)
 	}
-}
-func main() {
-	// 如果是embeding 字段就字段的名称就直接是原有的结构体的名字
-	label := Label{Widget: Widget{10, 10}, Text: "State:"}
-
-	label.X = 11
-	label.Y = 12
-	fmt.Println(label.X, label.Widget.X)
-
-	button1 := Button{Label{Widget{10, 70}, "OK"}}
-	button2 := Button{Label{Widget{10, 70}, "OK"}}
-	//button2 := NewButton(50, 70, "Cancel")
-	listBox := ListBox{Widget{10, 40},
-		[]string{"AL", "AK", "AZ", "AR"}, 0}
-
-	for _, painter := range []Painter{label, listBox, button1, button2} {
-		painter.Paint()
-	}
-
-	for _, widget := range []interface{}{label, listBox, button1, button2} {
-		widget.(Painter).Paint()
-		if clicker, ok := widget.(Clicker); ok {
-			clicker.Click()
-		}
-		fmt.Println() // print a empty line
-	}
-
 }
