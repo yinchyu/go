@@ -5,7 +5,23 @@ import (
 	"reflect"
 )
 
+const (
+	// 奇偶的顺序就会自动的出现
+	name = iota<<1 + 1
+	age
+	school
+)
+const (
+	C1 = 0 + iota<<8
+)
+
+//
+const (
+	C2 = 1 + iota<<8
+)
+
 func valueofint() {
+
 	var a int
 	var p = &a
 	of := reflect.ValueOf(p)
@@ -192,13 +208,8 @@ func canconvert() {
 	fmt.Println(s.CanConvert(t1))     // true
 	fmt.Println(s.CanConvert(t2))     // true
 }
-func main() {
-	//valueofint()
-	//valueofstruct()
-	//reflectsendchan()
-	//nilreflect()
-	//convert()
-	//var c [5]int
+
+func sliceconvertarrya() {
 	var d = []int{1, 2, 3, 4, 5}
 	var e = []int{1, 2, 3}
 	var f = []int{1, 2, 3, 4, 5, 6, 7}
@@ -208,5 +219,40 @@ func main() {
 	k := *(*[5]int)(f)
 	fmt.Println(h, j, k)
 	fmt.Println(len(k), cap(k))
+	fmt.Println("const value:", name, age, school)
+}
+
+func iotaprase() {
+	fmt.Println(C1, C2)
+	if C1 != 0 {
+		panic(C1)
+	}
+	if C2 != 1 {
+		panic(C2)
+	}
+	const (
+		// 在一个block 中不会进行reset 进行重置， 但是在多个const 标识符上可以进行重置
+		Sunday    int = iota
+		Monday        = iota
+		Tuesday       = iota
+		Wednesday     = iota
+		Thursday
+		Friday   = iota
+		Saturday = iota
+	)
+	fmt.Println(
+		Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday)
+	var f3 func(a int, b string,
+	) (x bool, y int,
+	)
+	fmt.Println(f3)
+}
+func funccall() {
+	//valueofint()
+	//valueofstruct()
+	//reflectsendchan()
+	//nilreflect()
+	//convert()
+	//var c [5]int
 
 }
