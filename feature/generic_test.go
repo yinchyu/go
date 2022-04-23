@@ -171,3 +171,48 @@ func TestErrorredeclare(t *testing.T) {
 	}
 	fmt.Println(v("true"))
 }
+
+func TestValuesequence(t *testing.T) {
+	a := 1
+	f := func() int { a++; return a }
+	x := []int{a, f()}
+	fmt.Println(x)
+	fmt.Println("a", a)
+	// 如果这个地方是变量的话就不会被限制
+	// 如果是常量的话， 会报错duplicate key
+	m := map[int]int{a: 1, a: 2, 2: 2}
+	fmt.Println(m)
+}
+
+func TestExpressvalue(t *testing.T) {
+	m := map[string]int{"Go": 2}
+	s := []int{1, 1, 1}
+	olds := s
+	n := 2
+	p := &n
+	s, m["Go"], *p, s[n] = []int{2, 2, 2}, s[1], m["Go"], 5
+	fmt.Println(m, s, n) // map[Go:1] [2 2 2] 0
+	fmt.Println(olds)    // [1 1 5]
+}
+
+func TestRemoveElement(z *testing.T) {
+	x := []int{2, 3, 5, 7, 11}
+	t := x[0]
+	fmt.Println(t)
+	var i int
+	// 先自增，然后取值，然后赋值
+	for i, x[i] = range x {
+		fmt.Println(i, x[i])
+	}
+	x[i] = t
+	fmt.Println(x) // [3 5 7 11 2]
+}
+
+//for 0, x[0] = range 0,x[0] {}
+
+func TestMap(t *testing.T) {
+	// 应该表示对map 的预分配空间
+	m := make(map[string]int, 12)
+	fmt.Println(len(m))
+	//fmt.Println(cap(m))
+}

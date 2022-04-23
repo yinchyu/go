@@ -63,3 +63,7 @@ func good() {
 		fmt.Println(x)
 	}()
 }
+
+func good2[a comparable](c a) {
+	fmt.Println(c)
+}
