@@ -17,3 +17,15 @@ func TestRange(z *testing.T) {
 	x[i] = t
 	fmt.Println(x) // [3 5 7 11 2]
 }
+
+func TestMake(t *testing.T) {
+	data := make([]int, 1<<10)
+	fmt.Println(len(data))
+}
+
+func BenchmarkName(b *testing.B) {
+	b.StopTimer()
+	for i := 0; i < b.N; i++ {
+
+	}
+}
