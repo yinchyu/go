@@ -30,6 +30,7 @@
 ```go 
 ----boundrycheck\
     |----boundry.go
+    |----boundrycheck.exe
     |----boundry_test.go
 ```
 #### cache

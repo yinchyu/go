@@ -5,6 +5,7 @@ import (
 	"testing"
 )
 
+// 检查边界， 一般是先通过一个数字来对边界进行限制， 后续的都不会进行边界检查
 func TestRange(z *testing.T) {
 	x := []int{2, 3, 5, 7, 11}
 	t := x[0]
