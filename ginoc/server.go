@@ -5,8 +5,10 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"github.com/go-playground/validator/v10"
+	"io"
 	"log"
 	"net/http"
+	"os"
 	"reflect"
 	"strconv"
 	"strings"
@@ -74,9 +76,10 @@ func Start() {
 	})
 
 	router.POST("/form_post", func(c *gin.Context) {
+		// 所以说是将request 和respose 集合一块
 		message := c.PostForm("message")
+		// 这个设置对应的默认值，高级的有绑定和验证的步骤  valid 和binding
 		nick := c.DefaultPostForm("nick", "anonymous")
-
 		c.JSON(200, gin.H{
 			"status":  "posted",
 			"message": message,
@@ -88,14 +91,33 @@ func Start() {
 		// single file
 		file, _ := c.FormFile("file")
 		log.Println(file.Filename)
-
+		go func() {
+			// 存储上传的文件
+			uploadfile, err := file.Open()
+			if err != nil {
+				return
+			}
+			unix := time.Now().Unix()
+			unixformatInt := strconv.FormatInt(unix, 10)
+			// 如果文件夹存在就不会改变对应的文件夹的权限
+			err = os.MkdirAll("./uploadfile/", 0777)
+			if err != nil {
+				return
+			}
+			savefile, err := os.OpenFile("./uploadfile/"+unixformatInt+".jpg", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0777)
+			if err != nil {
+				log.Println(err)
+			}
+			io.Copy(savefile, uploadfile)
+		}()
 		c.String(http.StatusOK, fmt.Sprintf("'%s' uploaded!", file.Filename))
 	})
 
-	router.LoadHTMLGlob("templates/*")
-	router.GET("/upload", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "upload.html", gin.H{})
-	})
+	//router.LoadHTMLGlob("templates/*")
+	//router.GET("/upload", func(c *gin.Context) {
+	//	c.HTML(http.StatusOK, "upload.html", gin.H{})
+	//})
+
 	router.GET("/index", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.tmpl", gin.H{
 			"title": "Main website",
@@ -190,6 +212,7 @@ func getMinVer(v string) (uint64, error) {
 	return strconv.ParseUint(v[first+1:last], 10, 64)
 }
 func main() {
-	fmt.Println(getMinVer("1.12"))
+	//fmt.Println(getMinVer("1.12"))
+	Start()
 
 }
