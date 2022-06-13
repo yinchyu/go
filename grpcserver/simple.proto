@@ -1,5 +1,6 @@
 syntax="proto3";
 package pb;
+// 制定生成的pb 的文件目录
 option go_package="./pb";
 
 
