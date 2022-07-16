@@ -1,4 +1,4 @@
-module main
+module github.com/yinchyu/go/consul
 
 go 1.18
 

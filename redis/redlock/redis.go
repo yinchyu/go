@@ -30,6 +30,8 @@ func SetOp(number string) (string, error) {
 	times, _ := strconv.Atoi(usedtimes)
 	if code != "" && times < 3 {
 		client.HIncrBy(number, "count", 1)
+		ping := client.Ping()
+		fmt.Println("print ping result", ping)
 		return code, nil
 	} else if code != "" && times >= 3 {
 		return "", fmt.Errorf("%s", "超过该时间段的获取次数")
