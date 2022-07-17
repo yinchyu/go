@@ -35,10 +35,10 @@ func main() {
 	}
 	fmt.Printf("KV: %v %s\n", pair.Key, pair.Value)
 	// Lookup the pair
-	pair, _, err = kv.Get("goready", nil)
-	if err != nil {
-		panic(err)
-	}
+	//pair, _, err = kv.Get("goready", nil)
+	//if err != nil {
+	//	panic(err)
+	//}
 	// 直接通过%s 进行转换
 	fmt.Printf("KV: %v %s\n", pair.Key, pair.Value)
 	//创建一个新服务。

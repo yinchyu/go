@@ -81,6 +81,11 @@
     |----template\
     |    |----home.html
 ```
+#### consul
+```go 
+----consul\
+    |----main.go
+```
 #### copy-unexport-filed
 ```go 
 ----copy-unexport-filed\
