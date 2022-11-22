@@ -29,6 +29,7 @@ func RestTime() {
 	// 表示不会有其他的goroutine 往这个上边发送数据
 	// 重置肯定是成功的，返回的结果表示 这个计时器是过期了还是没有过期
 	// 重置重新设定时间
+	// 放进去不用重置，拿出来需要进行重置
 	reset := timer.Reset(time.Second)
 	println(reset)
 	fmt.Println(<-timer.C)
