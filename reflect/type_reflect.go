@@ -1,4 +1,4 @@
-package reflect
+package main
 
 import (
 	"fmt"
@@ -94,8 +94,8 @@ func reflectundefine() {
 
 }
 
-//func main() {
-//	//reflectstruct()
-//	reflectundefine()
-//
-//}
+func main() {
+	reflectstruct()
+	//reflectundefine()
+
+}

@@ -1,3 +1,3 @@
-module reflect
+module main
 
 go 1.19

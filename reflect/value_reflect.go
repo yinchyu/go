@@ -1,4 +1,4 @@
-package reflect
+package main
 
 import (
 	"fmt"
@@ -15,7 +15,6 @@ const (
 	C1 = 0 + iota<<8
 )
 
-//
 const (
 	C2 = 1 + iota<<8
 )
