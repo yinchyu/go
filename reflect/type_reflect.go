@@ -59,12 +59,17 @@ func funcreflect() {
 	fmt.Println()
 }
 
-func reflectstruct() {
+func reconstruct() {
 	type T struct {
+		// 通过max 和min 限制大小， 数据库orm 模型通过tag 来进行限制
 		X    int  `max:"99" min:"12" default:"0"`
 		Y, Z bool `optional:"yes"`
 	}
-	t := reflect.TypeOf(T{})
+	// kind 返回一个具体的类型
+	t := reflect.TypeOf(&T{})
+	fmt.Println(t.Kind())
+	t = reflect.TypeOf(T{})
+	fmt.Println(t.Kind())
 	x := t.Field(0).Tag
 	y := t.Field(1).Tag
 	z := t.Field(2).Tag
@@ -72,9 +77,11 @@ func reflectstruct() {
 	fmt.Println(x.Lookup("min"))
 	fmt.Println(y)
 	fmt.Println(z)
+	// 返回结构体的字段数
+	fmt.Println(t.NumField())
 }
 
-func reflectundefine() {
+func retype() {
 	of := reflect.ArrayOf(5, reflect.TypeOf(123))
 	fmt.Println(of) //[5]int
 	//direction  分为三个方向， 一个是1 一个是2 一个是 3
@@ -82,8 +89,10 @@ func reflectundefine() {
 	chanOf := reflect.ChanOf(reflect.RecvDir, of)
 	fmt.Println(chanOf) //<-chan [5]int
 	fmt.Println(1 | 2)
+	// 返回一个类型的指针
 	ptr := reflect.PtrTo(of)
 	fmt.Println(ptr) //*[5]int
+	// 返回一个类型的切片
 	ts := reflect.SliceOf(reflect.TypeOf(23))
 	fmt.Println(ts) //[]int
 	funcOf := reflect.FuncOf([]reflect.Type{of, chanOf}, []reflect.Type{ts}, false)
@@ -91,11 +100,5 @@ func reflectundefine() {
 	// 结构体类型的构建
 	structOf := reflect.StructOf([]reflect.StructField{{Name: "Age", Type: reflect.TypeOf("abc")}})
 	fmt.Println(structOf.NumField())
-
-}
-
-func main() {
-	reflectstruct()
-	//reflectundefine()
 
 }

@@ -19,15 +19,15 @@ const (
 	C2 = 1 + iota<<8
 )
 
-func valueofint() {
-
+func valueOfInt() {
 	var a int
 	var p = &a
 	of := reflect.ValueOf(p)
 	fmt.Println(of.CanSet(), of.CanAddr()) // 直接通过Valueof得到的值都是不能够直接修改
 	ofa := reflect.ValueOf(&a)             // 需要对应的地址， 才能进行设置
+	// 设置值需要通过地址和对应的elem
 	ofa = ofa.Elem()
-	fmt.Println("int a is can be set?", ofa.CanSet(), ofa.CanAddr()) // 默认的也是不能直接被设置的
+	fmt.Println("int a is can be set?", ofa.CanSet(), ofa.CanAddr())
 	ofv := of.Elem()
 	fmt.Println(*p, a)
 	fmt.Println(ofv.CanSet(), ofv.CanAddr()) //获取到对应的解引用的后就可以进行修改
@@ -41,8 +41,11 @@ func valueofstruct() {
 		X any
 		y any
 	}
+	// 接口更适合读，或者说接口定义完善的场景， 因为使用接口表示
 	vp := reflect.ValueOf(&s)
 	indirect := reflect.Indirect(vp)
+	vn := vp.Elem()
+	fmt.Println(vn.CanSet(), vn.CanAddr())             // 就可以被设置对应的函数
 	fmt.Println(indirect.CanSet(), indirect.CanAddr()) // 就可以被设置对应的函数
 	for i := 0; i < indirect.NumField(); i++ {
 		if indirect.Field(i).CanSet() {
@@ -245,13 +248,4 @@ func iotaprase() {
 	) (x bool, y int,
 	)
 	fmt.Println(f3)
-}
-func funccall() {
-	//valueofint()
-	//valueofstruct()
-	//reflectsendchan()
-	//nilreflect()
-	//convert()
-	//var c [5]int
-
 }
