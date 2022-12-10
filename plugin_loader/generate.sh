@@ -1,0 +1,1 @@
+go build   -buildmode=plugin plugin.go -o plugin.o
