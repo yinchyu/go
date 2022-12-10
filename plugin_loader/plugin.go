@@ -1,33 +1,41 @@
 package main
 
-import "errors"
+import (
+	"errors"
+	"fmt"
+)
 
 type CommonLoader interface {
-	getError() string
-	setError(string)
-	setLoaderName(string)
+	GetError() string
+	SetError(string)
+	SetLoaderName(string)
+	GetLoaderName() string
 }
 type Loader struct {
 	LoaderName string
 	Err        error
 }
 
-func (e Loader) setLoaderName(s string) {
+func (e *Loader) SetLoaderName(s string) {
 	e.LoaderName = s
 }
 
-func (e Loader) getError() string {
+func (e *Loader) GetError() string {
+	fmt.Println("--", e)
 	if e.Err == nil {
+		fmt.Println("error is nil--------------")
 		return ""
 	}
+	fmt.Println("check----", e.Err)
 	return e.Err.Error()
 }
 
-func (e Loader) setError(error string) {
-	e.Err = errors.New(error)
+func (e *Loader) SetError(error string) {
+	e.Err = errors.New("GDFSGSDGFDSFGSDHFSDHDFHGSG")
+	fmt.Println("set error info-----------------")
 }
-func (e Loader) getLoaderName() string {
-	return "HELLO"
+func (e *Loader) GetLoaderName() string {
+	return "ycy name is good"
 }
 
 var LoaderName = Loader{
