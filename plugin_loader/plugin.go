@@ -1,7 +1,6 @@
 package main
 
 import (
-	"errors"
 	"fmt"
 )
 
@@ -21,18 +20,11 @@ func (e *Loader) SetLoaderName(s string) {
 }
 
 func (e *Loader) GetError() string {
-	fmt.Println("--", e)
-	if e.Err == nil {
-		fmt.Println("error is nil--------------")
-		return ""
-	}
-	fmt.Println("check----", e.Err)
-	return e.Err.Error()
+	return "good"
 }
 
 func (e *Loader) SetError(error string) {
-	e.Err = errors.New("GDFSGSDGFDSFGSDHFSDHDFHGSG")
-	fmt.Println("set error info-----------------")
+	fmt.Println("set error info")
 }
 func (e *Loader) GetLoaderName() string {
 	return "ycy name is good"
